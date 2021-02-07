@@ -1,0 +1,71 @@
+type Group @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  tags: String
+}
+
+type Entity @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  dob: Int
+  phone: String
+  email: String
+  fiscal_id: String
+  tags: String
+  inserted: Int
+  updated: Int
+  group: Group @connection
+  transactions: [Transaction] @connection(keyName: "byEntity", fields: ["id"])
+  adresses: [Adress] @connection(keyName: "byEntity", fields: ["id"])
+}
+
+type TrxItem @model @auth(rules: [{allow: public}]) @key(name: "byTransaction", fields: ["transactionID"]) {
+  id: ID!
+  quantity: Int
+  value_eur: Float
+  tax: Float
+  inserted: Int
+  item: Item @connection
+  updated: Int
+  transactionID: ID!
+}
+
+type Payment @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  id2: String
+  inserted: Int
+  updated: Int
+}
+
+type Transaction @model @auth(rules: [{allow: public}]) @key(name: "byEntity", fields: ["entityID"]) {
+  id: ID!
+  inserted: Int
+  updated: Int
+  payment: Payment @connection
+  trxItems: [TrxItem] @connection(keyName: "byTransaction", fields: ["id"])
+  entityID: ID!
+}
+
+type Adress @model @auth(rules: [{allow: public}]) @key(name: "byEntity", fields: ["entityID"]) {
+  id: ID!
+  part_1: String
+  part_2: String
+  postal_code: String
+  country: String
+  tags: String
+  entityID: ID!
+}
+
+type Item @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  notes: String
+  current_value_eur: Float
+  images: String
+  tags: String
+  dimension_wdh: String
+  weight_kg: Float
+  dob: Int
+  inserted: Int
+  updated: Int
+}
