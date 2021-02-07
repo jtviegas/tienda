@@ -26,7 +26,7 @@ let createData = async () => {
             "tags": "Lorem ipsum dolor sit amet",
             "inserted": 1020,
             "updated": 1020,
-            "group": /* Provide a Group instance here */,
+            "group": ""/* Provide a Group instance here */,
             "transactions": [],
             "adresses": []
         })
@@ -38,7 +38,7 @@ let createData = async () => {
             "value_eur": 123.45,
             "tax": 123.45,
             "inserted": 1020,
-            "item": /* Provide a Item instance here */,
+            "item": ""/* Provide a Item instance here */,
             "updated": 1020,
             "transactionID": "a3f4095e-39de-43d2-baf4-f8c16f0f6f4d"
         })
@@ -56,7 +56,7 @@ let createData = async () => {
         new Transaction({
             "inserted": 1020,
             "updated": 1020,
-            "payment": /* Provide a Payment instance here */,
+            "payment": ""/* Provide a Payment instance here */,
             "trxItems": [],
             "entityID": "a3f4095e-39de-43d2-baf4-f8c16f0f6f4d"
         })
