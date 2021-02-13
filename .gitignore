@@ -146,3 +146,4 @@ amplify-gradle-config.json
 amplifytools.xcconfig
 .secret-*.secrets
 .vscode
+.secrets
