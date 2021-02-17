@@ -1,0 +1,166 @@
+
+type Image 
+  @model(subscriptions: null) 
+  @key(name: "byItem", fields: ["itemID"])
+  # world r, owner r, admin crud, apikey crud => for dev purposes { allow: public, operations: [create, delete, update] }, 
+  @auth(rules: [{ allow: groups, groups: ["admin"] , operations: [create, delete, update]}]) 
+{
+  id: ID!
+  itemID: ID!
+  src: String!
+  index: Int
+}
+
+enum StockUnit {
+  G
+  ML
+  COUNT
+}
+
+type Item 
+  @model 
+  @key(name: "byBasket", fields: ["basketID"])
+  # world r, owner r, admin crud, apikey crud => for dev purposes { allow: public, operations: [create, delete, update] }, 
+  @auth(rules: [{ allow: groups, groups: ["admin"] , operations: [create, delete, update]}]) 
+{
+  id: ID!
+  name: String!
+  description: String
+  eur: Float!
+  dob: Int
+  dim_wdh: String
+  weight_kg: Float
+  active: Boolean!
+  stock_qty: Int
+  stock_measure: StockUnit
+  images: [Image] @connection(keyName: "byItem", fields: ["id"])
+  index: Int
+  trxItems: [TrxItem] @connection(keyName: "byItem", fields: ["id"])
+  basketID: ID
+}
+
+type TrxItem 
+  @model(subscriptions: null) 
+  @key(name: "byItem", fields: ["itemID"]) 
+  @key(name: "byTrx", fields: ["trxID"])
+  # world 0, owner crud, admin crud, apikey crud => for dev purposes { allow: public, operations: [read, create, delete, update] }, 
+  @auth(rules: [{ allow: owner, ownerField: "owner", operations: [create, update, delete, read]}, { allow: groups, groups: ["admin"] , operations: [create, delete, update, read]}])
+{
+  id: ID!
+  qty: Int!
+  eur: Float!
+  tax: Float!
+  itemID: ID!
+  item: Item @connection(name: "byItem", fields:["itemID"])
+  trxID: ID!
+}
+
+enum TrxStatus {
+  STARTED
+  COMPLETED
+  CANCELLED
+}
+# world 
+# owner r
+# admin crud
+type Trx 
+  @model(subscriptions: null) 
+  @key(name: "byEntity", fields: ["entityID"]) 
+  # world 0, owner cru, admin crud, apikey crud => for dev purposes { allow: public, operations: [create, delete, update, read] }, 
+  @auth(rules: [{ allow: owner, ownerField: "owner", operations: [create, update, read]}, { allow: groups, groups: ["admin"] , operations: [create, delete, update, read]}])  
+{
+  id: ID!
+  buyer_id: ID!
+  buyer_name: String
+  buyer_phone: String
+  buyer_email: String
+  buyer_fiscal_id: String
+  deliver_address_id: ID!
+  deliver_address_house: String
+  deliver_address_road: String
+  deliver_address_city: String
+  deliver_address_postalcode: String
+  deliver_address_country: String
+  fiscal_address_id: ID!
+  fiscal_address_house: String
+  fiscal_address_road: String
+  fiscal_address_city: String
+  fiscal_address_postal_code: String
+  fiscal_address_country: String
+  status: TrxStatus
+  items: [TrxItem] @connection(keyName: "byTrx", fields: ["id"])
+  payments: [Payment] @connection(keyName: "byTrx", fields: ["id"]) 
+  entityID: ID!
+}
+
+type Entity 
+  @model(subscriptions: null) 
+  # world 0, owner cru, admin crud, apikey crud => for dev purposes { allow: public, operations: [create, delete, update, read] }, 
+  @auth(rules: [{ allow: owner, ownerField: "owner", operations: [create, update, read]}, { allow: groups, groups: ["admin"] , operations: [create, delete, update, read]}]) 
+{
+  id: ID!
+  first_name: String
+  last_name: String
+  dob: Int
+  phone: String
+  email: String
+  fiscal_id: String
+  adresses: [Adress] @connection(keyName: "byEntity", fields: ["id"])
+  transactions: [Trx] @connection(keyName: "byEntity", fields: ["id"])
+  active: Boolean
+}
+
+enum PaymentStatus {
+  STARTED
+  COMPLETED
+  FAILED
+}
+
+type Payment 
+  @model 
+  #@auth(rules: [{ allow: groups, groups: ["admin"], operations: [delete, update]}]) 
+  @key(name: "byTrx", fields: ["trxID"])
+  # world 0, owner cru, admin crud, apikey crud => for dev purposes { allow: public, operations: [create, delete, update, read] }, 
+  @auth(rules: [{ allow: owner, ownerField: "owner", operations: [create, update, read]}, { allow: groups, groups: ["admin"] , operations: [create, delete, update, read]}]) 
+{
+  id: ID!
+  id_external: String
+  source: String
+  value: Float!
+  currency: String!
+  status: PaymentStatus!
+  trxID: ID!
+}
+
+type Basket 
+  @model @key(name: "byEntity", fields: ["entityID"]) 
+  # world 0, owner cru, admin crud, apikey crud => for dev purposes { allow: public, operations: [create, delete, update, read] }, 
+  @auth(rules: [{ allow: owner, ownerField: "owner", operations: [create, update, read]}, { allow: groups, groups: ["admin"] , operations: [create, delete, update, read]}]) 
+{
+  id: ID!
+  items: [Item] @connection(keyName: "byBasket", fields: ["id"])
+  entityID: ID!
+  entity: Entity @connection(fields: ["entityID"])
+}
+
+enum AddressType {
+  FISCAL
+  DELIVER
+}
+
+type Adress 
+  @model(subscriptions: null) 
+  @key(name: "byEntity", fields: ["entityID"]) 
+  # world 0, owner cru, admin crud, apikey crud => for dev purposes  { allow: public, operations: [create, delete, update, read] }, 
+  @auth(rules: [{ allow: owner, ownerField: "owner", operations: [create, update, read]}, { allow: groups, groups: ["admin"] , operations: [create, delete, update, read]}]) 
+{
+  id: ID!
+  house: String!
+  road: String
+  city: String!
+  postal_code: String!
+  country: String!
+  type: AddressType!
+  entityID: ID!
+  active: Boolean
+}

@@ -41,9 +41,8 @@ err(){
 
 wxd=$(pwd)
 export AWS_PROFILE=tienda
-npx create-react-app site && \
-cd site && \
-npm --save install aws-amplify @aws-amplify/ui-react bootstrap --force && \
-amplify init && \
-npm start
+cd "$parent_folder/site"
+node_modules/jest/bin/jest.js test/
 cd "$wxd"
+
+
