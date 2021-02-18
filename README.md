@@ -1,28 +1,8 @@
 # tienda
 
-## app scaffolding
+## setting up
 
-```
-npx create-react-app tienda
-cd tienda
-```
-`npm start` : Starts the development server.
-
-`npm run build`: Bundles the app into static files for production.
-
-`npm test`: Starts the test runner.
-
-`npm run eject`: Removes this tool and copies build dependencies, configuration files and scripts into the app directory. If you do this, you can’t go back!
-
-
-## ui base
-- [started off by react-bootstrap example](https://codesandbox.io/s/github/react-bootstrap/code-sandbox-examples/tree/master/basic-react-router)
-- [react-bootstrap getting started](https://react-bootstrap.github.io/getting-started/introduction/)
-- [one possible example](https://getbootstrap.com/docs/4.5/examples/pricing/#)
-- [bootstrap getting started](https://getbootstrap.com/docs/4.5/getting-started/introduction/)
-
-
-## app scaffolding
+### install amplify cli
 
 - Install the Amplify CLI, a command line toolchain that runs locally that communicates with your app backend: `curl -sL https://aws-amplify.github.io/amplify-cli/install | bash && $SHELL`
 - configure aws profile
@@ -30,33 +10,43 @@ cd tienda
   `export AWS_PROFILE=tienda_dev`
   - if not: 
   `amplify configure`
+
+### app scaffolding - script `devops/setup.sh`
+
+- move to the project root (tienda)
 - create a fresh react app
   ```
-  npx create-react-app tienda
-  cd tienda
-  npm start
+  npx create-react-app site
   ```
--  it’s time to set up Amplify so that we can create the necessary backend services needed to support the app, run the following command from your project's root folder (tienda):
+- move to the site folder (tienda/site)
   ```
-  amplify init
+  cd site
   ```
 - install libraries
   ```
-  sudo npm install aws-amplify @aws-amplify/ui-react bootstrap
+  npm --save install aws-amplify @aws-amplify/ui-react bootstrap
   ```
-- edit index.js
+-  it’s time to set up Amplify so that we can create the necessary backend services needed to support the app:
+  ```
+  amplify init
+  ```
+- edit `tienda/site/src/index.js` and add:
   ```
   import Amplify from "aws-amplify";
   import awsExports from "./aws-exports";
   Amplify.configure(awsExports);
   ```
-- add graphql api
+- add graphql api - for dev purposes use api key auth and add graphql schema defined in `tienda/devops/schema.graphql`
   ```
   amplify add api
   ```
 - deploy the backend to the cloud
   ```
   amplify push
+  ```
+- generate graphql models
+  ```
+  amplify codegen models
   ```
 - check it
   ```
@@ -74,6 +64,17 @@ cd tienda
   ```
   amplify mock api
   ```
+
+## if we want to use bootstrap
+- [started off by react-bootstrap example](https://codesandbox.io/s/github/react-bootstrap/code-sandbox-examples/tree/master/basic-react-router)
+- [react-bootstrap getting started](https://react-bootstrap.github.io/getting-started/introduction/)
+- [one possible example](https://getbootstrap.com/docs/4.5/examples/pricing/#)
+- [bootstrap getting started](https://getbootstrap.com/docs/4.5/getting-started/introduction/)
+
+
+
+
+
 
 
 

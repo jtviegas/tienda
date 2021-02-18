@@ -7,6 +7,7 @@ shopt -s nullglob
 # ---------- CONSTANTS ----------
 export USER_BIN_DIR=~/.local/bin
 export INCLUDES_DIR=~
+export AWS_PROFILE=tienda_dev
 # -------------------------------
 
 if [ -z "$this_folder" ]; then
@@ -40,10 +41,19 @@ err(){
 }
 
 wxd=$(pwd)
-export AWS_PROFILE=tienda
+
 npx create-react-app site && \
 cd site && \
-npm --save install aws-amplify @aws-amplify/ui-react bootstrap --force && \
-amplify init && \
-npm start
+npm --save install aws-amplify @aws-amplify/ui-react bootstrap && \
+amplify init
+if [ ! "$?" -eq "0" ] ; then err "amplify init failed" && exit 1; fi
+
+cat << EOF
+please edit "index.js":
+  import Amplify from "aws-amplify";
+  import awsExports from "./aws-exports";
+  Amplify.configure(awsExports);
+EOF
+
+amplify add api && amplify push && amplify codegen models && amplify status
 cd "$wxd"

@@ -113,6 +113,7 @@ export declare class Entity {
   readonly fiscal_id?: string;
   readonly adresses?: (Adress | null)[];
   readonly transactions?: (Trx | null)[];
+  readonly active?: boolean;
   constructor(init: ModelInit<Entity>);
   static copyOf(source: Entity, mutator: (draft: MutableModel<Entity>) => MutableModel<Entity> | void): Entity;
 }
@@ -126,6 +127,7 @@ export declare class Adress {
   readonly country: string;
   readonly type: AddressType | keyof typeof AddressType;
   readonly entityID: string;
+  readonly active?: boolean;
   constructor(init: ModelInit<Adress>);
   static copyOf(source: Adress, mutator: (draft: MutableModel<Adress>) => MutableModel<Adress> | void): Adress;
 }

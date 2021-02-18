@@ -49,6 +49,21 @@ export const schema = {
                             "itemID"
                         ]
                     }
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "delete",
+                                    "update"
+                                ]
+                            }
+                        ]
+                    }
                 }
             ]
         },
@@ -185,6 +200,21 @@ export const schema = {
                             "basketID"
                         ]
                     }
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "delete",
+                                    "update"
+                                ]
+                            }
+                        ]
+                    }
                 }
             ]
         },
@@ -264,6 +294,21 @@ export const schema = {
                         "name": "byTrx",
                         "fields": [
                             "trxID"
+                        ]
+                    }
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "delete",
+                                    "update"
+                                ]
+                            }
                         ]
                     }
                 }
@@ -460,6 +505,21 @@ export const schema = {
                             "entityID"
                         ]
                     }
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "delete",
+                                    "update"
+                                ]
+                            }
+                        ]
+                    }
                 }
             ]
         },
@@ -531,6 +591,21 @@ export const schema = {
                         "name": "byTrx",
                         "fields": [
                             "trxID"
+                        ]
+                    }
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "delete",
+                                    "update"
+                                ]
+                            }
                         ]
                     }
                 }
@@ -615,6 +690,13 @@ export const schema = {
                         "connectionType": "HAS_MANY",
                         "associatedWith": "entityID"
                     }
+                },
+                "active": {
+                    "name": "active",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -624,6 +706,21 @@ export const schema = {
                     "type": "model",
                     "properties": {
                         "subscriptions": null
+                    }
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "delete",
+                                    "update"
+                                ]
+                            }
+                        ]
                     }
                 }
             ]
@@ -688,6 +785,13 @@ export const schema = {
                     "type": "ID",
                     "isRequired": true,
                     "attributes": []
+                },
+                "active": {
+                    "name": "active",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -705,6 +809,21 @@ export const schema = {
                         "name": "byEntity",
                         "fields": [
                             "entityID"
+                        ]
+                    }
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "delete",
+                                    "update"
+                                ]
+                            }
                         ]
                     }
                 }
@@ -763,6 +882,21 @@ export const schema = {
                             "entityID"
                         ]
                     }
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "delete",
+                                    "update"
+                                ]
+                            }
+                        ]
+                    }
                 }
             ]
         }
@@ -801,5 +935,5 @@ export const schema = {
         }
     },
     "nonModels": {},
-    "version": "8ee5cf1cc3c621f61e0c8fb00ca44fa0"
+    "version": "cb8120ed2610bc566d3abfb0b8cccc1a"
 };

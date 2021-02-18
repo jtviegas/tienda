@@ -2,8 +2,10 @@
 type Image 
   @model(subscriptions: null) 
   @key(name: "byItem", fields: ["itemID"])
-  # world r, owner r, admin crud, apikey crud => for dev purposes { allow: public, operations: [create, delete, update] }, 
-  @auth(rules: [{ allow: groups, groups: ["admin"] , operations: [create, delete, update]}]) 
+  # world r, owner r, admin crud, apikey crud
+  # @auth(rules: [{ allow: groups, groups: ["admin"] , operations: [create, delete, update]}]) 
+  # for dev purposes 
+  @auth(rules: [{ allow: public, operations: [create, delete, update] }])
 {
   id: ID!
   itemID: ID!
@@ -20,8 +22,10 @@ enum StockUnit {
 type Item 
   @model 
   @key(name: "byBasket", fields: ["basketID"])
-  # world r, owner r, admin crud, apikey crud => for dev purposes { allow: public, operations: [create, delete, update] }, 
-  @auth(rules: [{ allow: groups, groups: ["admin"] , operations: [create, delete, update]}]) 
+  # world r, owner r, admin crud, apikey crud
+  # @auth(rules: [{ allow: groups, groups: ["admin"] , operations: [create, delete, update]}]) 
+  # for dev purposes 
+  @auth(rules: [{ allow: public, operations: [create, delete, update] }])
 {
   id: ID!
   name: String!
@@ -43,8 +47,10 @@ type TrxItem
   @model(subscriptions: null) 
   @key(name: "byItem", fields: ["itemID"]) 
   @key(name: "byTrx", fields: ["trxID"])
-  # world 0, owner crud, admin crud, apikey crud => for dev purposes { allow: public, operations: [read, create, delete, update] }, 
-  @auth(rules: [{ allow: owner, ownerField: "owner", operations: [create, update, delete, read]}, { allow: groups, groups: ["admin"] , operations: [create, delete, update, read]}])
+  # world 0, owner crud, admin crud, apikey crud
+  # @auth(rules: [{ allow: owner, ownerField: "owner", operations: [create, update, delete, read]}, { allow: groups, groups: ["admin"] , operations: [create, delete, update, read]}])
+  # for dev purposes 
+  @auth(rules: [{ allow: public, operations: [create, delete, update] }])
 {
   id: ID!
   qty: Int!
@@ -66,8 +72,10 @@ enum TrxStatus {
 type Trx 
   @model(subscriptions: null) 
   @key(name: "byEntity", fields: ["entityID"]) 
-  # world 0, owner cru, admin crud, apikey crud => for dev purposes { allow: public, operations: [create, delete, update, read] }, 
-  @auth(rules: [{ allow: owner, ownerField: "owner", operations: [create, update, read]}, { allow: groups, groups: ["admin"] , operations: [create, delete, update, read]}])  
+  # world 0, owner cru, admin crud, apikey crud
+  # @auth(rules: [{ allow: owner, ownerField: "owner", operations: [create, update, read]}, { allow: groups, groups: ["admin"] , operations: [create, delete, update, read]}]) 
+  # for dev purposes 
+  @auth(rules: [{ allow: public, operations: [create, delete, update] }]) 
 {
   id: ID!
   buyer_id: ID!
@@ -95,8 +103,10 @@ type Trx
 
 type Entity 
   @model(subscriptions: null) 
-  # world 0, owner cru, admin crud, apikey crud => for dev purposes { allow: public, operations: [create, delete, update, read] }, 
-  @auth(rules: [{ allow: owner, ownerField: "owner", operations: [create, update, read]}, { allow: groups, groups: ["admin"] , operations: [create, delete, update, read]}]) 
+  # world 0, owner cru, admin crud, apikey crud
+  # @auth(rules: [{ allow: owner, ownerField: "owner", operations: [create, update, read]}, { allow: groups, groups: ["admin"] , operations: [create, delete, update, read]}])
+  # for dev purposes 
+  @auth(rules: [{ allow: public, operations: [create, delete, update] }])
 {
   id: ID!
   first_name: String
@@ -118,10 +128,11 @@ enum PaymentStatus {
 
 type Payment 
   @model 
-  #@auth(rules: [{ allow: groups, groups: ["admin"], operations: [delete, update]}]) 
   @key(name: "byTrx", fields: ["trxID"])
-  # world 0, owner cru, admin crud, apikey crud => for dev purposes { allow: public, operations: [create, delete, update, read] }, 
-  @auth(rules: [{ allow: owner, ownerField: "owner", operations: [create, update, read]}, { allow: groups, groups: ["admin"] , operations: [create, delete, update, read]}]) 
+  # world 0, owner cru, admin crud, apikey crud
+  # @auth(rules: [{ allow: owner, ownerField: "owner", operations: [create, update, read]}, { allow: groups, groups: ["admin"] , operations: [create, delete, update, read]}]) 
+  # for dev purposes 
+  @auth(rules: [{ allow: public, operations: [create, delete, update] }])
 {
   id: ID!
   id_external: String
@@ -134,8 +145,10 @@ type Payment
 
 type Basket 
   @model @key(name: "byEntity", fields: ["entityID"]) 
-  # world 0, owner cru, admin crud, apikey crud => for dev purposes { allow: public, operations: [create, delete, update, read] }, 
-  @auth(rules: [{ allow: owner, ownerField: "owner", operations: [create, update, read]}, { allow: groups, groups: ["admin"] , operations: [create, delete, update, read]}]) 
+  # world 0, owner cru, admin crud, apikey crud
+  # @auth(rules: [{ allow: owner, ownerField: "owner", operations: [create, update, read]}, { allow: groups, groups: ["admin"] , operations: [create, delete, update, read]}]) 
+  # for dev purposes 
+  @auth(rules: [{ allow: public, operations: [create, delete, update] }])
 {
   id: ID!
   items: [Item] @connection(keyName: "byBasket", fields: ["id"])
@@ -152,7 +165,9 @@ type Adress
   @model(subscriptions: null) 
   @key(name: "byEntity", fields: ["entityID"]) 
   # world 0, owner cru, admin crud, apikey crud => for dev purposes  { allow: public, operations: [create, delete, update, read] }, 
-  @auth(rules: [{ allow: owner, ownerField: "owner", operations: [create, update, read]}, { allow: groups, groups: ["admin"] , operations: [create, delete, update, read]}]) 
+  # @auth(rules: [{ allow: owner, ownerField: "owner", operations: [create, update, read]}, { allow: groups, groups: ["admin"] , operations: [create, delete, update, read]}]) 
+  # for dev purposes 
+  @auth(rules: [{ allow: public, operations: [create, delete, update] }])
 {
   id: ID!
   house: String!
