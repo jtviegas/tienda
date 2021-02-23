@@ -6,26 +6,27 @@ import ItemWidget from '../components/ItemWidget';
 let store = new Store()
 
 
+function makeItems() {
+    return utilsStore.createItems(3, 2);
+}
 
 function fetchItems() {
-    return utilsStore.createItems(3, 2)
-        .then(store.getItems(null,null))
+    return store.getItems(null,null);
 }
 
 export default function ItemGallery() {
-    let imgs = []
-    const [items, setItems] = useState(imgs); 
+    const [items, setItems] = useState([]); 
 
     useEffect(() => {  
-        fetchItems().then(o => {
-            console.log("items:", o)
+        makeItems().then(() => fetchItems()).then(o => {
+            console.log("items:", o);
             setItems(o);
         });
-    });
+    }, []);
 
     return (
         <div>
-        { items.map(o => <ItemWidget item={o} />) }
+        { items.map((o,index) => <ItemWidget key={index} item={o} />) }
         </div>
     ); 
 }
