@@ -42,8 +42,12 @@ err(){
 
 wxd=$(pwd)
 
-npx create-react-app site && \
-cd site && \
+if [ ! -d "$parent_folder/site" ]; then
+  # react app was not yet created, let's do it then
+  npx create-react-app site
+fi
+
+cd site
 npm --save install aws-amplify @aws-amplify/ui-react bootstrap && \
 amplify init
 if [ ! "$?" -eq "0" ] ; then err "amplify init failed" && exit 1; fi

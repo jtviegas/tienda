@@ -1,10 +1,13 @@
-const { DataStore, Predicates, SortDirection } = require('@aws-amplify/datastore');
-const { Image, Item, Basket, TrxItem, Trx, Entity, Payment, Address } = require('../models');
+
+// @ts-ignore
+import { DataStore, Predicates, SortDirection } from '@aws-amplify/datastore';
+// @ts-ignore
+import { Image, Item, Basket, TrxItem, Trx, Entity, Payment, Adress } from '../models';
 
 class Store {
 
     saveImage(image){
-        return DataStore.save(new Image(image));
+        return DataStore.save(image);
     }
 
     getImage(id){
@@ -26,7 +29,7 @@ class Store {
     }
 
     saveItem(item){
-        return DataStore.save(new Item(item));
+        return DataStore.save(item);
     }
 
     getItem(id){
@@ -48,7 +51,7 @@ class Store {
     }
 
     saveBasket(basket){
-        return DataStore.save(new Basket(basket));
+        return DataStore.save(basket);
     }
 
     getBasket(id){
@@ -63,7 +66,7 @@ class Store {
     }
 
     saveTrxItem(trxItem){
-        return DataStore.save(new TrxItem(trxItem));
+        return DataStore.save(trxItem);
     }
 
     getTrxItems(trxId){
@@ -78,7 +81,7 @@ class Store {
     }
 
     saveTrx(trx){
-        return DataStore.save(new Trx(trx));
+        return DataStore.save(trx);
     }
 
     getTrxs(entityId){
@@ -93,7 +96,7 @@ class Store {
     }
 
     saveEntity(entity){
-        return DataStore.save(new Entity(entity));
+        return DataStore.save(entity);
     }
 
     getEntity(id){
@@ -115,7 +118,7 @@ class Store {
     }
 
     savePayment(payment){
-        return DataStore.save(new Payment(payment));
+        return DataStore.save(payment);
     }
 
     getPayments(filter, pagination){
@@ -133,25 +136,25 @@ class Store {
     }
 
     saveAddress(address){
-        return DataStore.save(new Address(address));
+        return DataStore.save(address);
     }
 
     getAddress(id){
-        return DataStore.query(Address, id);
+        return DataStore.query(Adress, id);
     }
 
     getAddresses(filter, pagination){
         if ( null !== filter )
-            return DataStore.query(Address, filter, pagination);
+            return DataStore.query(Adress, filter, pagination);
         else
-            return DataStore.query(Address, Predicates.ALL, pagination);
+            return DataStore.query(Adress, Predicates.ALL, pagination);
     }
 
     deleteAddresses(ids){
         if( Array.isArray(ids) && 0 < ids.length )
-            return DataStore.delete(Address, o => o.id("contains", ids));
+            return DataStore.delete(Adress, o => o.id("contains", ids));
         else
-            return DataStore.delete(Address, Predicates.ALL);
+            return DataStore.delete(Adress, Predicates.ALL);
     }
 
 }
