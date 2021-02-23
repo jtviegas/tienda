@@ -11,22 +11,28 @@ function makeItems() {
 }
 
 function fetchItems() {
-    return store.getItems(null,null);
+    return store.getItems(null,{page: 0, limit: 16});
 }
 
 export default function ItemGallery() {
     const [items, setItems] = useState([]); 
 
     useEffect(() => {  
-        makeItems().then(() => fetchItems()).then(o => {
+        //makeItems().then(() => 
+        fetchItems().then(o => {
             console.log("items:", o);
             setItems(o);
         });
     }, []);
 
     return (
-        <div>
-        { items.map((o,index) => <ItemWidget key={index} item={o} />) }
+        <div className="album py-5 bg-light">
+            <div className="container">
+                <div className="row">
+                    { items.map((o,index) => <ItemWidget key={index} item={o} />) }
+                </div>
+            </div>
         </div>
     ); 
 }
+
