@@ -1,6 +1,6 @@
 import model from "./utils_model"
 import Store from "./graphql_store"
-import { Item } from "../models/index"
+import { Item } from "../../models/index"
 
 let store = new Store()
 

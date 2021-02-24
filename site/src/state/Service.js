@@ -1,6 +1,6 @@
 
-import Store from "../store/graphql_store"
-import utilsStore from "../store/utils_store"
+import Store from "./store/graphql_store"
+import utilsStore from "./store/utils_store"
 
 class Service {
 
@@ -14,6 +14,10 @@ class Service {
 
     fetchItems = () => {
         return this.store.getItems(null,{page: 0, limit: 16});
+    }
+
+    fetchUser = () => {
+        return this.store.getEntity(null);
     }
 
 }

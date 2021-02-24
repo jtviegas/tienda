@@ -1,5 +1,5 @@
-import Store from "../store/graphql_store"
-import utils from '../store/utils_model';
+import Store from "../state/store/graphql_store"
+import utils from '../state/store/utils_model';
 // @ts-ignore
 import {Item} from '../models';
 

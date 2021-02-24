@@ -1,27 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import './App.css';
 import ItemGallery from "./components/ItemGallery"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
-import Service from "./components/Service"
+import {ItemsContextProvider} from "./state/context";
+
+
 
 export default function App() {
 
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {  
-    new Service().fetchItems().then(o => {
-        console.log("items length:", o.length);
-        setItems(o);
-    });
-  }, []);
-
-
   return (
-    <div className="App">
+    <Fragment>
       <Header />
-      <ItemGallery items={items} />
+      <ItemsContextProvider>
+        <ItemGallery />
+      </ItemsContextProvider>
       <Footer />
-    </div>
+    </Fragment>
   );
 }

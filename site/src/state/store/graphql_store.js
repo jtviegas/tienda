@@ -2,7 +2,7 @@
 // @ts-ignore
 import { DataStore, Predicates, SortDirection } from '@aws-amplify/datastore';
 // @ts-ignore
-import { Image, Item, Basket, TrxItem, Trx, Entity, Payment, Adress } from '../models';
+import { Image, Item, Basket, TrxItem, Trx, Entity, Payment, Adress } from '../../models';
 
 class Store {
 

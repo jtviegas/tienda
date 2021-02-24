@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ItemWidget from '../components/ItemWidget';
+import {ItemsContext} from "../state/context";
 
-let ItemGallery = ({items}) =>  {
+let ItemGallery = () =>  {
+    const items = useContext(ItemsContext);
     if ( null !== items && Array.isArray(items) && (0 < items.length) ){
         return (
             <div className="album py-5 bg-light">

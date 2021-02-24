@@ -1,4 +1,4 @@
-import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplify/datastore";
+import { ModelInit, MutableModel, PersistentModelConstructor } from "../state/store/@aws-amplify/datastore";
 
 export enum StockUnit {
   G = "G",

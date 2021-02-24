@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import utils from '../store/utils_model';
+import utils from '../state/store/utils_model';
 import ItemWidget from '../components/ItemWidget';
 
 describe('ItemWidget', () => {
