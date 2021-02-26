@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import Service from "./Service"
+import Service from "./service"
 
 const ItemsContext = createContext([]);
 

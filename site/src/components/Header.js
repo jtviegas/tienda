@@ -1,6 +1,6 @@
 import React from 'react';
 
-let Header = () => {
+let Header = ({user}) => {
         return (
             
             <div className="container">
