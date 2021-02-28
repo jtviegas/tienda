@@ -4,7 +4,7 @@ const config = {
         STAGES: ['local', 'dev', 'test', 'prod']
         , ENVS: ['dev', 'test', 'prod']
         , WINSTON_CONFIG: {
-            level: 'debug',
+            level: 'info',
             format: winston.format.combine(
                 winston.format.splat(),
                 winston.format.timestamp(),
@@ -14,7 +14,9 @@ const config = {
             ),
             transports: [new winston.transports.Console()]
         }
-
+        , items: {
+            pagesize: 32
+        }
     };
 
 export default config;
