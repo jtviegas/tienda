@@ -1,4 +1,4 @@
-import { ModelInit, MutableModel, PersistentModelConstructor } from "../state/store/@aws-amplify/datastore";
+import { ModelInit, MutableModel, PersistentModelConstructor } from "../services/store/@aws-amplify/datastore";
 
 export enum StockUnit {
   G = "G",
@@ -16,6 +16,12 @@ export enum PaymentStatus {
   STARTED = "STARTED",
   COMPLETED = "COMPLETED",
   FAILED = "FAILED"
+}
+
+export enum EntityType {
+  ADMIN = "ADMIN",
+  PRIVATE = "PRIVATE",
+  ORGANIZATION = "ORGANIZATION"
 }
 
 export enum AddressType {
@@ -114,6 +120,7 @@ export declare class Entity {
   readonly adresses?: (Adress | null)[];
   readonly transactions?: (Trx | null)[];
   readonly active?: boolean;
+  readonly type: EntityType | keyof typeof EntityType;
   constructor(init: ModelInit<Entity>);
   static copyOf(source: Entity, mutator: (draft: MutableModel<Entity>) => MutableModel<Entity> | void): Entity;
 }

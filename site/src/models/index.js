@@ -1,7 +1,5 @@
 // @ts-check
-// @ts-ignore
 import { initSchema } from '@aws-amplify/datastore';
-
 import { schema } from './schema';
 
 const StockUnit = {
@@ -20,6 +18,12 @@ const PaymentStatus = {
   "STARTED": "STARTED",
   "COMPLETED": "COMPLETED",
   "FAILED": "FAILED"
+};
+
+const EntityType = {
+  "ADMIN": "ADMIN",
+  "PRIVATE": "PRIVATE",
+  "ORGANIZATION": "ORGANIZATION"
 };
 
 const AddressType = {
@@ -41,5 +45,6 @@ export {
   StockUnit,
   TrxStatus,
   PaymentStatus,
+  EntityType,
   AddressType
 };

@@ -15,7 +15,7 @@ const config = {
             transports: [new winston.transports.Console()]
         }
         , items: {
-            pagesize: 32
+            pagesize: 12
         }
     };
 

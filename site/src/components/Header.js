@@ -1,4 +1,5 @@
 import React from 'react';
+ import React from 'react';
 import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 
 let Header = ({user}) => {
@@ -10,7 +11,7 @@ let Header = ({user}) => {
                     <div className="col-4 pt-1">
                     </div>
                     <div className="col-4 text-center">
-                        <a className="blog-header-logo text-dark" href="#">title</a>
+                        <a className="blog-header-logo text-dark" href="/">title</a>
                     </div>
                     <div className="col-4 d-flex justify-content-end align-items-center">
                         <a className="text-muted" href="#" aria-label="Search">
@@ -25,7 +26,7 @@ let Header = ({user}) => {
 
                 <div className="nav-scroller py-1 mb-2">
                     <nav className="nav d-flex justify-content-between">
-                    <NavLink exact to="/shop" style={{ padding: "0 10px" }} activeStyle={{ fontWeight: "bold" }} className="p-2 text-muted"> Shop </NavLink>
+                    <NavLink to="/shop" style={{ padding: "0 10px" }} activeStyle={{ fontWeight: "bold" }} className="p-2 text-muted"> Shop </NavLink>
                     <NavLink exact to="/about" style={{ padding: "0 10px" }} activeStyle={{ fontWeight: "bold" }} className="p-2 text-muted"> About </NavLink>
                     </nav>
                 </div>

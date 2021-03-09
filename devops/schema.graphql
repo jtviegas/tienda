@@ -101,6 +101,12 @@ type Trx
   entityID: ID!
 }
 
+enum EntityType {
+  ADMIN
+  PRIVATE
+  ORGANIZATION
+}
+
 type Entity 
   @model(subscriptions: null) 
   # world 0, owner cru, admin crud, apikey crud
@@ -118,6 +124,7 @@ type Entity
   adresses: [Adress] @connection(keyName: "byEntity", fields: ["id"])
   transactions: [Trx] @connection(keyName: "byEntity", fields: ["id"])
   active: Boolean
+  type: EntityType
 }
 
 enum PaymentStatus {

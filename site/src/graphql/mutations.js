@@ -11,6 +11,9 @@ export const createImage = /* GraphQL */ `
       itemID
       src
       index
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -26,6 +29,9 @@ export const updateImage = /* GraphQL */ `
       itemID
       src
       index
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -41,6 +47,9 @@ export const deleteImage = /* GraphQL */ `
       itemID
       src
       index
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -68,10 +77,14 @@ export const createItem = /* GraphQL */ `
           itemID
           src
           index
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       index
       trxItems {
@@ -82,12 +95,19 @@ export const createItem = /* GraphQL */ `
           tax
           itemID
           trxID
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       basketID
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -115,10 +135,14 @@ export const updateItem = /* GraphQL */ `
           itemID
           src
           index
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       index
       trxItems {
@@ -129,12 +153,19 @@ export const updateItem = /* GraphQL */ `
           tax
           itemID
           trxID
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       basketID
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -162,10 +193,14 @@ export const deleteItem = /* GraphQL */ `
           itemID
           src
           index
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       index
       trxItems {
@@ -176,12 +211,19 @@ export const deleteItem = /* GraphQL */ `
           tax
           itemID
           trxID
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       basketID
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -211,16 +253,24 @@ export const createTrxItem = /* GraphQL */ `
         stock_measure
         images {
           nextToken
+          startedAt
         }
         index
         trxItems {
           nextToken
+          startedAt
         }
         basketID
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
       trxID
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -250,16 +300,24 @@ export const updateTrxItem = /* GraphQL */ `
         stock_measure
         images {
           nextToken
+          startedAt
         }
         index
         trxItems {
           nextToken
+          startedAt
         }
         basketID
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
       trxID
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -289,16 +347,24 @@ export const deleteTrxItem = /* GraphQL */ `
         stock_measure
         images {
           nextToken
+          startedAt
         }
         index
         trxItems {
           nextToken
+          startedAt
         }
         basketID
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
       trxID
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -337,10 +403,14 @@ export const createTrx = /* GraphQL */ `
           tax
           itemID
           trxID
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       payments {
         items {
@@ -351,12 +421,19 @@ export const createTrx = /* GraphQL */ `
           currency
           status
           trxID
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       entityID
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -395,10 +472,14 @@ export const updateTrx = /* GraphQL */ `
           tax
           itemID
           trxID
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       payments {
         items {
@@ -409,12 +490,19 @@ export const updateTrx = /* GraphQL */ `
           currency
           status
           trxID
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       entityID
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -453,10 +541,14 @@ export const deleteTrx = /* GraphQL */ `
           tax
           itemID
           trxID
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       payments {
         items {
@@ -467,12 +559,19 @@ export const deleteTrx = /* GraphQL */ `
           currency
           status
           trxID
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       entityID
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -502,10 +601,14 @@ export const createEntity = /* GraphQL */ `
           type
           entityID
           active
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       transactions {
         items {
@@ -529,12 +632,20 @@ export const createEntity = /* GraphQL */ `
           fiscal_address_country
           status
           entityID
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       active
+      type
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -564,10 +675,14 @@ export const updateEntity = /* GraphQL */ `
           type
           entityID
           active
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       transactions {
         items {
@@ -591,12 +706,20 @@ export const updateEntity = /* GraphQL */ `
           fiscal_address_country
           status
           entityID
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       active
+      type
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -626,10 +749,14 @@ export const deleteEntity = /* GraphQL */ `
           type
           entityID
           active
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       transactions {
         items {
@@ -653,12 +780,20 @@ export const deleteEntity = /* GraphQL */ `
           fiscal_address_country
           status
           entityID
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       active
+      type
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -677,6 +812,9 @@ export const createPayment = /* GraphQL */ `
       currency
       status
       trxID
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -695,6 +833,9 @@ export const updatePayment = /* GraphQL */ `
       currency
       status
       trxID
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -713,6 +854,9 @@ export const deletePayment = /* GraphQL */ `
       currency
       status
       trxID
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -739,10 +883,14 @@ export const createBasket = /* GraphQL */ `
           stock_measure
           index
           basketID
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       entityID
       entity {
@@ -755,14 +903,23 @@ export const createBasket = /* GraphQL */ `
         fiscal_id
         adresses {
           nextToken
+          startedAt
         }
         transactions {
           nextToken
+          startedAt
         }
         active
+        type
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -789,10 +946,14 @@ export const updateBasket = /* GraphQL */ `
           stock_measure
           index
           basketID
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       entityID
       entity {
@@ -805,14 +966,23 @@ export const updateBasket = /* GraphQL */ `
         fiscal_id
         adresses {
           nextToken
+          startedAt
         }
         transactions {
           nextToken
+          startedAt
         }
         active
+        type
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -839,10 +1009,14 @@ export const deleteBasket = /* GraphQL */ `
           stock_measure
           index
           basketID
+          _version
+          _deleted
+          _lastChangedAt
           createdAt
           updatedAt
         }
         nextToken
+        startedAt
       }
       entityID
       entity {
@@ -855,14 +1029,23 @@ export const deleteBasket = /* GraphQL */ `
         fiscal_id
         adresses {
           nextToken
+          startedAt
         }
         transactions {
           nextToken
+          startedAt
         }
         active
+        type
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -883,6 +1066,9 @@ export const createAdress = /* GraphQL */ `
       type
       entityID
       active
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -903,6 +1089,9 @@ export const updateAdress = /* GraphQL */ `
       type
       entityID
       active
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -923,6 +1112,9 @@ export const deleteAdress = /* GraphQL */ `
       type
       entityID
       active
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }

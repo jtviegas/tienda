@@ -1,5 +1,5 @@
 import React from 'react';
-import { isTaggedTemplateExpression } from '../../../node_modules/typescript/lib/typescript';
+import { Link } from "react-router-dom";
 
 const getItemImageSrc = (item) => {
     let result = null
@@ -13,7 +13,7 @@ const getItemImageSrc = (item) => {
 
 
 
-let WindowWidget = ({ item, dispatch }) => {
+let ItemSmallWidget = ({ item, admin, dispatch }) => {
 
     if (null !== item)
         return (
@@ -21,9 +21,11 @@ let WindowWidget = ({ item, dispatch }) => {
                 <div className="card mb-4 shadow-sm">
                     <img src={getItemImageSrc(item)} className="card-img-top" alt="..."/>
                     <div className="card-body">
-                        <h5 className="card-title">{item.name}</h5>
+                        <h4 className="card-title">{item.name}</h4>
+                        <h6 className="card-title">{item.id}</h6>
                         <p className="card-text">{item.description}</p>
-                        <a href={"shop/" + item.id} className="btn btn-outline-dark btn-sm m-1 float-right">check it</a>
+                        {admin && <Link to={"shop/" + item.id +  "?edit=true" } className="btn btn-outline-dark btn-sm m-1 float-right">edit it</Link>}
+                        <Link to={"shop/" + item.id } className="btn btn-outline-dark btn-sm m-1 float-right">check it</Link>
                         <button onClick={dispatch.bind(null,{type:'basket.add.item', value: item.id})} type="button" className="btn btn-outline-dark btn-sm m-1 float-right">add to basket</button>
                     </div>
                 </div>
@@ -33,4 +35,4 @@ let WindowWidget = ({ item, dispatch }) => {
         return null
 };
 
-export default WindowWidget;
+export default ItemSmallWidget;

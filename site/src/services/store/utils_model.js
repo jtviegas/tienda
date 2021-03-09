@@ -1,4 +1,4 @@
-import { Image, Item } from "../../models";
+import { Image, Item } from "../../models/index";
 
 let images_url = "http://tmp.tgedr.com.s3-website-us-east-1.amazonaws.com/images"
 

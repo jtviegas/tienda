@@ -697,6 +697,15 @@ export const schema = {
                     "type": "Boolean",
                     "isRequired": false,
                     "attributes": []
+                },
+                "type": {
+                    "name": "type",
+                    "isArray": false,
+                    "type": {
+                        "enum": "EntityType"
+                    },
+                    "isRequired": true,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -926,6 +935,14 @@ export const schema = {
                 "FAILED"
             ]
         },
+        "EntityType": {
+            "name": "EntityType",
+            "values": [
+                "ADMIN",
+                "PRIVATE",
+                "ORGANIZATION"
+            ]
+        },
         "AddressType": {
             "name": "AddressType",
             "values": [
@@ -935,5 +952,5 @@ export const schema = {
         }
     },
     "nonModels": {},
-    "version": "cb8120ed2610bc566d3abfb0b8cccc1a"
+    "version": "29abc0560b73f88517d6a78e4215b8ff"
 };
