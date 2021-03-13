@@ -6,8 +6,7 @@ import ItemsView from "./vw_items"
 import { EntityType } from "../../models/index"
 
 const Shop = ({items, user, dispatch}) =>  {
-
-    logger.debug('[Shop|in] (items: %s | user: %s)', JSON.stringify(items), JSON.stringify(user))
+    logger.info('[Shop|in] (items size: %s | user: %s)', JSON.stringify(Array.isArray(items) ? items.length : 0), JSON.stringify(user))
     const pageParam = new URLSearchParams(useLocation().search).get('page');
     const { url, path } = useRouteMatch()
     logger.info('[Shop] (url: %s | path: %s | pageParam: %s)', JSON.stringify(url), JSON.stringify(path), JSON.stringify(pageParam))
@@ -18,7 +17,6 @@ const Shop = ({items, user, dispatch}) =>  {
     const currentPage = null !== pageParam ? parseInt(pageParam) : 0;
 
     logger.debug('[Shop] path: %s', `${path}/:itemid`)
-    logger.debug('[Shop|in]')
     const result = (
 
             <Fragment>
@@ -26,7 +24,7 @@ const Shop = ({items, user, dispatch}) =>  {
                 <Route exact path={"/shop"} render={() => <ItemsView items={items} user={user} admin={isAdmin} dispatch={dispatch} page={currentPage}/>} />       
             </Fragment>
     ); 
-    logger.debug('[Shop|out]')
+    logger.info('[Shop|out]')
     return result;
 };
 

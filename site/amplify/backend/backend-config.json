@@ -16,5 +16,19 @@
         }
       }
     }
+  },
+  "auth": {
+    "site85f3b9ba": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  },
+  "storage": {
+    "tiendastore": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
+    }
   }
 }

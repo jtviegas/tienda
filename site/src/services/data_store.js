@@ -1,5 +1,6 @@
 import logger from "../common/logger";
 import Store from "./store/graphql_store"
+import FileStore from "./store/file_store"
 import utilsStore from "./store/utils_store"
 import config from "../common/config"
 
@@ -7,6 +8,7 @@ class DataStore {
 
     constructor() {
         this.store = new Store();
+        this.fileStore = new FileStore();
     }
 
     makeItems = () => {

@@ -8,7 +8,9 @@ import config from "../../common/config"
 
 let ItemsView = ({items, user, admin, dispatch, page}) =>  {
 
-    logger.debug('[ItemsView|in] (items: %s, user: %s, admin: %s, dispatch: %s)', JSON.stringify(items), JSON.stringify(user), JSON.stringify(admin)
+    logger.info('[ItemsView|in] (items: %s, user: %s, admin: %s, dispatch: %s)', 
+        JSON.stringify(Array.isArray(items) ? items.length : 0), JSON.stringify(user), 
+        JSON.stringify(admin)
     , JSON.stringify(dispatch), JSON.stringify(page))
 
     const previousPage = page - 1
