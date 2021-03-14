@@ -13,7 +13,7 @@ const getItemImageSrc = (item) => {
 
 
 
-let ItemSmallWidget = ({ item, admin, dispatcher }) => {
+const ItemSmallWidget = ({ item, admin, dispatcher }) => {
 
     if (null !== item)
         return (

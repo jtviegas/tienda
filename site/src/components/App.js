@@ -3,17 +3,20 @@ import './App.css';
 import logger from "../common/logger";
 import stateManager from "../services/state_manager";
 import Home from "./Home"
+import { Hub, Logger } from 'aws-amplify';
 
-const initial_state = {items: [], user: null}
+const initial_state = {items: [], session: null }
 
 export default function App() {
-  logger.info('[App|in]')
+  logger.info('[App|in] history: %s')
 
   const [ state, dispatch ] = useReducer(stateManager.reducer, initial_state);
   const dispatcher = stateManager.getDispatcher(dispatch);
 
+  Hub.listen('auth', stateManager.hubListener(dispatcher));
+
   const result = (
-      <Home {...state } dispatcher={dispatcher}  />
+      <Home {...state} dispatcher={dispatcher} />
   );
   
   logger.info('[App|out]')

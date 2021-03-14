@@ -6,10 +6,10 @@ import config from "../../common/config"
 
 
 
-let VwItems = ({items, user, dispatcher, page, admin}) =>  {
+let VwItems = ({items, session, dispatcher, page, admin}) =>  {
 
-    logger.info('[VwItems|in] (items: %s, user: %s, admin: %s, dispatch: %s)', 
-        JSON.stringify(Array.isArray(items) ? items.length : 0), JSON.stringify(user), 
+    logger.info('[VwItems|in] (items: %s, session: %s, admin: %s, dispatch: %s)', 
+        JSON.stringify(Array.isArray(items) ? items.length : 0), JSON.stringify(session), 
         JSON.stringify(admin)
     , JSON.stringify(dispatcher), JSON.stringify(page))
 
