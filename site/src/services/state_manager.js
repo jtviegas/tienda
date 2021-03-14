@@ -17,6 +17,7 @@ const stateManager = {
                 result = { ...state , items: action.items, user: action.user }
                 break;
             case 'item.save':
+                logger.info('[stateManager.reducer] item.save action: %s', JSON.stringify(action))
                 utils_func.search_and_replace(state.items, action.item)
                 result = { ...state , items: state.items }
                 break  
@@ -28,9 +29,9 @@ const stateManager = {
         return result;
     }
 
-    , dispatcher: (f_dispatch) => {
-        let handle = (payload) => {
-            logger.debug('[stateManager.dispatcher.handle|in]: (%s)', JSON.stringify(payload))
+    , getDispatcher: (f_dispatch) => {
+        const handle = (payload) => {
+            logger.debug('[stateManager.getDispatcher.handle|in]: (%s)', JSON.stringify(payload))
             switch (payload.type) {
               case 'items.get':
                   store.fetchItems(payload.page).then(o => f_dispatch({ ...payload , items: o, user: {} }));
@@ -38,15 +39,16 @@ const stateManager = {
               case 'basket.add.item':
                 break;
               case 'item.save':
-                store.saveItem(new Item(payload.value)).then(o => f_dispatch({ ...payload , item: o }));
+                store.saveItem(payload.value).then(o => f_dispatch({ ...payload , item: o }));
                 break;
               default:
                 f_dispatch(payload)
                 break;
             };
-            logger.debug('[stateManager.dispatcher.handle|out]')
+            logger.debug('[stateManager.getDispatcher.handle|out]')
             
         }
+        logger.debug('[stateManager.getDispatcher|out] => %s', typeof(handle))
         return handle;
     }
 

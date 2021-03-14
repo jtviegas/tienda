@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import ImageCarousel from "./wgt_image_carousel"
 import {NumericInput} from "../common/numeric_input"
 import {StockUnit} from "../../models/index"
+import {Item} from "../../models/index"
 
 
 {/* <input className="btn btn-primary" type="button" value="add image" onClick={e => local_dispatch({ type: 'changeImages', value: [...images, createImage()]})} />
@@ -11,7 +12,20 @@ function createImage(){
     return {id:"ab67ba43-1e5d-4502-9b45-a68bd7b3b3f4", itemID:"1e33a623-fdc8-42c0-8f99-32bd5da7964a", src:"http://tmp.tgedr.com.s3-website-us-east-1.amazonaws.com/images/images5.jpeg",index:0}
 } */}
 
-
+function updateItem(item, properties){
+    return Item.copyOf(item, updated => {
+        updated.name = properties.name;
+        updated.description = properties.description;
+        updated.eur = properties.eur;
+        updated.dob = properties.dob;
+        updated.dim_wdh = properties.dim_wdh;
+        updated.weight_kg = properties.weight_kg;
+        updated.active = properties.active;
+        updated.stock_qty = properties.stock_qty;
+        updated.stock_measure = properties.stock_measure;
+        updated.images = properties.images;
+      })
+}
 
 function reducer(state, action) { 
     logger.info('[reducer] (%s, %s)', JSON.stringify(state), JSON.stringify(action))
@@ -41,24 +55,20 @@ function reducer(state, action) {
     } 
 }
 
-let WdgItem = ({item, user, admin, dispatch}) =>  {
-    logger.info('[WdgItem] (%s, %s, %s, %s)', JSON.stringify(item), JSON.stringify(user), JSON.stringify(admin), JSON.stringify(dispatch))
+let WdgItem = ({item, user, admin, dispatcher}) =>  {
+    logger.info('[WdgItem] (%s, %s, %s, %s)', JSON.stringify(item), JSON.stringify(user), JSON.stringify(admin), JSON.stringify(dispatcher))
 
     const [{ id, name, description, eur, dob, dim_wdh, weight_kg, active, stock_qty, 
         stock_measure, images }, local_dispatch] = useReducer(reducer, {...item}); 
 
-    logger.info('[WdgItemEdit] state: (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)', 
+    logger.info('[WdgItem] state: (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)', 
         JSON.stringify(name), JSON.stringify(description), JSON.stringify(eur), JSON.stringify(dob)
         , JSON.stringify(dim_wdh), JSON.stringify(weight_kg), JSON.stringify(active), JSON.stringify(stock_qty)
-        , JSON.stringify(stock_measure), JSON.stringify(images))
+        , JSON.stringify(stock_measure), JSON.stringify(images), JSON.stringify(id))
 
     return (
-        
         <div className="container">
-
             <ImageCarousel images={images} />
-
-            
             <form> 
                 <div className="row">
 
@@ -86,7 +96,6 @@ let WdgItem = ({item, user, admin, dispatch}) =>  {
                         <textarea className="form-control" rows="3" id="description" value={description} 
                         onChange={e => local_dispatch({ type: 'changeDescription', value: e.target.value})}/>
                     </div>
-
                     
                     <div className="col-12 col-md-6 col-lg-3 mb-3">
                         <label htmlFor="weight_kg">weight</label>
@@ -128,15 +137,12 @@ let WdgItem = ({item, user, admin, dispatch}) =>  {
                     </div>
                     <div className="col-12 col-md-6 mb-3">
                         <input className="btn btn-primary float-right" type="button" value="save" 
-                        onClick={e => dispatch({ type: 'item.save', value: { id, name, description, eur, dob, dim_wdh, weight_kg, active, stock_qty, 
-                            stock_measure, images } })} />
+                        onClick={e => dispatcher({ type: 'item.save', value: updateItem(item, {id, name, description, eur, dob, dim_wdh, weight_kg, active, stock_qty, 
+                            stock_measure, images }) })} />
 
                     </div>
                 </div>
-                    
-                
 
-                
                 {/* <div>
                     <label>id: {id} </label><br/>
                     <label>{name} </label><br/>

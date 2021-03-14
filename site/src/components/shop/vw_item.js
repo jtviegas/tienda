@@ -5,10 +5,10 @@ import WdgItem from "./wgt_item"
 
 
 
-let VwItem = ({items, user, admin, dispatch}) =>  {
+let VwItem = ({items, user, admin, dispatcher}) =>  {
     logger.info('[VwItem] (items length:%s, %s, %s, %s)', 
         JSON.stringify(Array.isArray(items) ? items.length : 0), 
-        JSON.stringify(user), JSON.stringify(admin), JSON.stringify(dispatch))
+        JSON.stringify(user), JSON.stringify(admin), JSON.stringify(dispatcher))
     const { itemid } = useParams()
     const edit = new URLSearchParams(useLocation().search).get('edit');
     logger.info('[VwItem] going to render item id: %s and edit is: %s', itemid, JSON.stringify(edit))
@@ -22,7 +22,7 @@ let VwItem = ({items, user, admin, dispatch}) =>  {
             itemWidget = <WdgItemEdit item={item} user={user}/>
         }
         else */ 
-            itemWidget = <WdgItem item={item} user={user} admin={admin} dispatch={dispatch} />
+            itemWidget = <WdgItem {... {item, user, admin, dispatcher}} />
         
         return (
             <Fragment>

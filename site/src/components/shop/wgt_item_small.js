@@ -13,7 +13,7 @@ const getItemImageSrc = (item) => {
 
 
 
-let ItemSmallWidget = ({ item, admin, dispatch }) => {
+let ItemSmallWidget = ({ item, admin, dispatcher }) => {
 
     if (null !== item)
         return (
@@ -26,7 +26,7 @@ let ItemSmallWidget = ({ item, admin, dispatch }) => {
                         <p className="card-text">{item.description}</p>
                         {admin && <Link to={"shop/" + item.id +  "?edit=true" } className="btn btn-outline-dark btn-sm m-1 float-right">edit it</Link>}
                         <Link to={"shop/" + item.id } className="btn btn-outline-dark btn-sm m-1 float-right">check it</Link>
-                        <button onClick={dispatch.bind(null,{type:'basket.add.item', value: item.id})} type="button" className="btn btn-outline-dark btn-sm m-1 float-right">add to basket</button>
+                        <button onClick={dispatcher.bind(null,{type:'basket.add.item', value: item.id})} type="button" className="btn btn-outline-dark btn-sm m-1 float-right">add to basket</button>
                     </div>
                 </div>
             </div> 
