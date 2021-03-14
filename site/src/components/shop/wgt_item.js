@@ -56,15 +56,12 @@ function reducer(state, action) {
 }
 
 let WdgItem = ({item, session, admin, dispatcher}) =>  {
-    logger.info('[WdgItem] (%s, %s, %s, %s)', JSON.stringify(item), JSON.stringify(session), JSON.stringify(admin), JSON.stringify(dispatcher))
+    logger.info('[WdgItem|in]')
+    logger.debug('[WdgItem] (%s, %s, %s, %s)', 
+    JSON.stringify(item), JSON.stringify(session), JSON.stringify(admin), JSON.stringify(dispatcher))
 
     const [{ id, name, description, eur, dob, dim_wdh, weight_kg, active, stock_qty, 
         stock_measure, images }, local_dispatch] = useReducer(reducer, {...item}); 
-
-    logger.info('[WdgItem] state: (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)', 
-        JSON.stringify(name), JSON.stringify(description), JSON.stringify(eur), JSON.stringify(dob)
-        , JSON.stringify(dim_wdh), JSON.stringify(weight_kg), JSON.stringify(active), JSON.stringify(stock_qty)
-        , JSON.stringify(stock_measure), JSON.stringify(images), JSON.stringify(id))
 
     return (
         <div className="container">

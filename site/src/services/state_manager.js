@@ -2,7 +2,6 @@
 import logger from "../common/logger";
 import DataStore from "./data_store";
 import utils_func from "../common/utils_func"
-import {Item} from "../models/index"
 import { Auth } from 'aws-amplify';
 
 const store = new DataStore();
@@ -16,19 +15,24 @@ const stateManager = {
         switch (action.type) {
             case 'items.get':
                 result = { ...state , items: action.items, user: action.user }
+                logger.info('[stateManager.reducer.items.get] got items: %d', action.items.length)
                 break;
             case 'item.save':
-                logger.info('[stateManager.reducer] item.save action: %s', JSON.stringify(action))
                 utils_func.search_and_replace(state.items, action.item)
                 result = { ...state , items: state.items }
+                logger.info('[stateManager.reducer.item.save] saved item: %s', action.item.id)
                 break  
             case 'signIn':
-                if( action.value !== state.session )
+                if( action.value !== state.session ) {
                   result = { ...state , session: action.value }
+                  logger.info('[stateManager.reducer.signIn] new user session: %s', action.value.email )
+                }
                 break;
             case 'signOut':
-                if( null !== state.session )
+                if( null !== state.session ){
                   result = { ...state , session: null }
+                  logger.info('[stateManager.reducer.signOut] user signedOut')
+              }
                 break;
             default:
                 throw new Error(`${action.type} is not a valid action`);
@@ -51,16 +55,13 @@ const stateManager = {
                 store.saveItem(payload.value).then(o => f_dispatch({ ...payload , item: o }));
                 break;
               case 'signIn':
-                logger.info('[stateManager.getDispatcher.handle]: signIn')
                 f_dispatch({ ...payload })
                 break;
               case 'signOut':
-                logger.info('[stateManager.getDispatcher.handle]: signOut')
                 f_dispatch({ ...payload })
                 break;
               case 'session.end':
                 Auth.signOut().then((result) => {
-                  logger.info(`[stateManager.getDispatcher.handle.session.end] ${result}`)
                   f_dispatch({type: 'signOut'});
                 }
               ).catch((err) => {
@@ -70,7 +71,6 @@ const stateManager = {
                   break;
               case 'session.find':
                 Auth.currentSession().then((result) => {
-                    logger.info(`[stateManager.getDispatcher.handle.session.find] ${result}`)
                     f_dispatch({type: 'signIn', value: {"jwtToken": result.idToken.jwtToken, "email": result.idToken.payload.email }});
                   }
                 ).catch((err) => {

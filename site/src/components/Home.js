@@ -7,12 +7,10 @@ import Footer from "./Footer"
 import logger from "../common/logger";
 import Auth from "./auth/index";
 
-export default function Home(props) {
-  logger.info(`[Home|in] props: ${JSON.stringify(props)}`)
-  const {items, session, dispatcher} = props
-  logger.info('[Home|in] (items.length: %d, session: %s, dispatcher: %s)', 
+export default function Home({items, session, dispatcher}) {
+  logger.info('[Home|in]');
+  logger.debug('[Home] (items.length: %d, session: %s, dispatcher: %s)', 
     Array.isArray(items) ? items.length: 0, JSON.stringify(session), typeof(dispatcher));
-  logger.debug('[Home] items: %s', Array.isArray(items) ? JSON.stringify(items): "")
 
   useEffect(() => { dispatcher( {type:'session.find'} ); }, []);
 
@@ -27,6 +25,6 @@ export default function Home(props) {
           <Footer/>
       </Router>
   );
-  logger.info('[Home|out]')
+  logger.debug('[Home|out]')
   return result;
 }

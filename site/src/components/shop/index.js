@@ -6,7 +6,8 @@ import VwItems from "./vw_items"
 import { EntityType } from "../../models/index"
 
 const Shop = ( {items, session, dispatcher} ) =>  {
-    logger.info('[Shop|in] (items size: %s , session: %s, dispatcher: %s)', 
+    logger.info('[Shop|in])')
+    logger.debug('[Shop] (items size: %s , session: %s, dispatcher: %s)', 
     JSON.stringify(Array.isArray(items) ? items.length : 0), JSON.stringify(session), 
     JSON.stringify(dispatcher))
     
@@ -17,7 +18,7 @@ const Shop = ( {items, session, dispatcher} ) =>  {
 //        admin = true
     const page = null !== pageParam ? parseInt(pageParam) : 0;
 
-    logger.info('[Shop] (url: %s | path: %s | pageParam: %s)', JSON.stringify(url), JSON.stringify(path), JSON.stringify(pageParam))
+    logger.debug('[Shop] (url: %s | path: %s | pageParam: %s)', JSON.stringify(url), JSON.stringify(path), JSON.stringify(pageParam))
 
     logger.debug('[Shop] path: %s', `${path}/:itemid`)
     const result = (
@@ -26,7 +27,7 @@ const Shop = ( {items, session, dispatcher} ) =>  {
                 <Route exact path={"/shop"} render={() => <VwItems {...{items, session,dispatcher, page, admin} } />} />       
             </Fragment>
     ); 
-    logger.info('[Shop|out]')
+    logger.debug('[Shop|out]')
     return result;
 };
 

@@ -5,21 +5,21 @@ import logger from "../common/logger";
 import { withRouter} from "react-router";
 
 let Header = ({session, dispatcher}) => {
-
-    logger.info('[Header|in] (session: %s, dispatcher: %s)', JSON.stringify(session), typeof(dispatcher));
+    logger.info('[Header|in]');
+    logger.debug('[Header|in] (session: %s, dispatcher: %s)', JSON.stringify(session), typeof(dispatcher));
 
     const goAuth = function(history) {
         return () => {
-            logger.info("[goAuth|in]")
+            logger.debug("[goAuth|in]")
             const path = `${history.location.pathname}${history.location.search}`
-            logger.info("[goAuth] path: %s", path)
+            logger.debug("[goAuth] path: %s", path)
             history.push({
                 pathname: '/auth',
                 state: { 
                     from: path
                 }
               });
-            logger.info("[goAuth|out]")
+            logger.debug("[goAuth|out]")
         }
     }(useHistory());
 

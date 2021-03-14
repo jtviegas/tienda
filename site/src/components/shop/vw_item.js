@@ -6,7 +6,8 @@ import WdgItem from "./wgt_item"
 
 
 let VwItem = ({items, session, admin, dispatcher}) =>  {
-    logger.info('[VwItem] (items length:%s, %s, %s, %s)', 
+    logger.info('[VwItem|in]')
+    logger.debug('[VwItem] (items length:%s, %s, %s, %s)', 
         JSON.stringify(Array.isArray(items) ? items.length : 0), 
         JSON.stringify(session), JSON.stringify(admin), JSON.stringify(dispatcher))
     const { itemid } = useParams()
@@ -15,7 +16,7 @@ let VwItem = ({items, session, admin, dispatcher}) =>  {
     const item = items.filter(o => o.id === itemid)[0]
 
     if( item ){
-        logger.info('[VwItem] item found: %s', JSON.stringify(item.id))
+        logger.debug('[VwItem] item found: %s', JSON.stringify(item.id))
         let itemWidget;
         /*
         if (edit){

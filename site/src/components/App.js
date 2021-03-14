@@ -8,7 +8,7 @@ import { Hub, Logger } from 'aws-amplify';
 const initial_state = {items: [], session: null }
 
 export default function App() {
-  logger.info('[App|in] history: %s')
+  logger.info('[App|in]')
 
   const [ state, dispatch ] = useReducer(stateManager.reducer, initial_state);
   const dispatcher = stateManager.getDispatcher(dispatch);
@@ -19,6 +19,6 @@ export default function App() {
       <Home {...state} dispatcher={dispatcher} />
   );
   
-  logger.info('[App|out]')
+  logger.debug('[App|out]')
   return result;
 }
