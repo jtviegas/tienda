@@ -13,9 +13,6 @@ const Shop = ( {items, session, dispatcher} ) =>  {
     
     const pageParam = new URLSearchParams(useLocation().search).get('page');
     const { url, path } = useRouteMatch()
-    let admin = false
-//    if( user && user.type && EntityType.ADMIN === user.type )
-//        admin = true
     const page = null !== pageParam ? parseInt(pageParam) : 0;
 
     logger.debug('[Shop] (url: %s | path: %s | pageParam: %s)', JSON.stringify(url), JSON.stringify(path), JSON.stringify(pageParam))
@@ -23,8 +20,8 @@ const Shop = ( {items, session, dispatcher} ) =>  {
     logger.debug('[Shop] path: %s', `${path}/:itemid`)
     const result = (
             <Fragment>
-                <Route path={"/shop/:itemid"} render={() => <VwItem {...{items, session, dispatcher, admin} }/>} />
-                <Route exact path={"/shop"} render={() => <VwItems {...{items, session,dispatcher, page, admin} } />} />       
+                <Route path={"/shop/:itemid"} render={() => <VwItem {...{items, session, dispatcher} }/>} />
+                <Route exact path={"/shop"} render={() => <VwItems {...{items, session,dispatcher, page} } />} />       
             </Fragment>
     ); 
     logger.debug('[Shop|out]')

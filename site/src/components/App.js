@@ -12,7 +12,6 @@ export default function App() {
 
   const [ state, dispatch ] = useReducer(stateManager.reducer, initial_state);
   const dispatcher = stateManager.getDispatcher(dispatch);
-
   Hub.listen('auth', stateManager.hubListener(dispatcher));
 
   const result = (

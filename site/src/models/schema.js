@@ -1,72 +1,5 @@
 export const schema = {
     "models": {
-        "Image": {
-            "name": "Image",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "itemID": {
-                    "name": "itemID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "src": {
-                    "name": "src",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "index": {
-                    "name": "index",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": false,
-                    "attributes": []
-                }
-            },
-            "syncable": true,
-            "pluralName": "Images",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {
-                        "subscriptions": null
-                    }
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byItem",
-                        "fields": [
-                            "itemID"
-                        ]
-                    }
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "delete",
-                                    "update"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
         "Item": {
             "name": "Item",
             "fields": {
@@ -145,16 +78,10 @@ export const schema = {
                 "images": {
                     "name": "images",
                     "isArray": true,
-                    "type": {
-                        "model": "Image"
-                    },
+                    "type": "String",
                     "isRequired": false,
                     "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "itemID"
-                    }
+                    "isArrayNullable": true
                 },
                 "index": {
                     "name": "index",
@@ -952,5 +879,5 @@ export const schema = {
         }
     },
     "nonModels": {},
-    "version": "29abc0560b73f88517d6a78e4215b8ff"
+    "version": "19b2b5de86b8889bf6be34bd0a1d1c3b"
 };

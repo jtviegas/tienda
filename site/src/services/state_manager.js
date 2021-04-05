@@ -21,11 +21,16 @@ const stateManager = {
                 utils_func.search_and_replace(state.items, action.item)
                 result = { ...state , items: state.items }
                 logger.info('[stateManager.reducer.item.save] saved item: %s', action.item.id)
-                break  
+                break;
+            case 'item.add.image':
+                logger.info('[stateManager.reducer.item.add.image] adding image: %s', JSON.stringify(action.image))
+                utils_func.addImageToItem(state.items, action.image)
+                result = { ...state , items: state.items }
+                break;
             case 'signIn':
                 if( action.value !== state.session ) {
                   result = { ...state , session: action.value }
-                  logger.info('[stateManager.reducer.signIn] new user session: %s', action.value.email )
+                  logger.info('[stateManager.reducer.signIn] new user session: %s', action.value )
                 }
                 break;
             case 'signOut':
@@ -44,7 +49,7 @@ const stateManager = {
 
     , getDispatcher: (f_dispatch) => {
         const handle = (payload) => {
-            logger.debug('[stateManager.getDispatcher.handle|in]: (%s)', JSON.stringify(payload))
+            logger.info('[stateManager.getDispatcher.handle|in]: (%s)', JSON.stringify(payload))
             switch (payload.type) {
               case 'items.get':
                   store.fetchItems(payload.page).then(o => f_dispatch({ ...payload , items: o, user: {} }));
@@ -53,6 +58,9 @@ const stateManager = {
                 break;
               case 'item.save':
                 store.saveItem(payload.value).then(o => f_dispatch({ ...payload , item: o }));
+                break;
+              case 'item.add.image':
+                store.saveImage(payload.value).then(o => f_dispatch({ ...payload , image: { src: o} })).catch(err => logger.error(err))
                 break;
               case 'signIn':
                 f_dispatch({ ...payload })
@@ -71,7 +79,7 @@ const stateManager = {
                   break;
               case 'session.find':
                 Auth.currentSession().then((result) => {
-                    f_dispatch({type: 'signIn', value: {"jwtToken": result.idToken.jwtToken, "email": result.idToken.payload.email }});
+                    f_dispatch({type: 'signIn', value: {"jwtToken": result.idToken.jwtToken, "email": result.idToken.payload.email, "groups": result.idToken.payload["cognito:groups"] }});
                   }
                 ).catch((err) => {
                     logger.warn(`[stateManager.getDispatcher.handle.session.find] ${err}`)
@@ -93,11 +101,13 @@ const stateManager = {
       return (data) => {
         switch (data.payload.event) {
             case 'signIn':
-              dispatcher({type: data.payload.event, value: {"jwtToken": data.payload.data.signInUserSession.idToken.jwtToken, "email": data.payload.data.signInUserSession.idToken.payload.email }})
+              logger.info(`[stateManager.hubListener] signInUserSession: ${JSON.stringify(data.payload.data.signInUserSession)}`)
+              dispatcher({type: data.payload.event, value: {"jwtToken": data.payload.data.signInUserSession.idToken.jwtToken, "email": data.payload.data.signInUserSession.idToken.payload.email, "groups": data.payload.data.signInUserSession.idToken.payload["cognito:groups"] }})
               break;
             case 'signOut':
               dispatcher({type: data.payload.event})
               break;
+            default:
         }
       }
     }

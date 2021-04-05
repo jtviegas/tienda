@@ -4,9 +4,9 @@ import logger from "../../common/logger";
 class FileStore {
 
 
-    putObject = (key, obj) => {
+    putObject = (key, obj, options=null) => {
         logger.debug("[FileStore|putObject|in] (%s,%s)", JSON.stringify(key), JSON.stringify(obj))
-        const promise = Storage.put(key, obj)
+        const promise = Storage.put(key, obj, options ? options : {})
         logger.debug("[FileStore|putObject|out] => %s", promise)
         return promise;
     }

@@ -1,4 +1,4 @@
-import { Image, Item } from "../../models/index";
+import { Item } from "../../models/index";
 
 let images_url = "http://tmp.tgedr.com.s3-website-us-east-1.amazonaws.com/images"
 
@@ -24,7 +24,7 @@ let randomString = (length) => {
     }
 
 }
-
+/* 
 let randomImage = (itemId, index) => {
     return new Image({
         "id": randomString(8),
@@ -32,7 +32,7 @@ let randomImage = (itemId, index) => {
         "src": getRandomImageSrc(),
         "index": index,
     })
-}
+} */
 
 let randomItem = (name = null, id = null, images = 0) => {
     //let id = randomString(12)
@@ -51,8 +51,8 @@ let randomItem = (name = null, id = null, images = 0) => {
         r.id = id
     if( 0 < images){
         r.images = []
-        for(let i=0; i < images; i++)
-            r.images.push(randomImage(id, i))
+        /* for(let i=0; i < images; i++)
+            r.images.push(randomImage(id, i)) */
     }
     
     return new Item(r);
@@ -61,7 +61,7 @@ let randomItem = (name = null, id = null, images = 0) => {
 let utils = {
     randomEntity: randomEntity
     , randomItem: randomItem
-    , randomImage: randomImage
+/*     , randomImage: randomImage */
     , randomString: randomString
 }
 export default utils;

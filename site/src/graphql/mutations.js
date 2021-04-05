@@ -1,60 +1,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createImage = /* GraphQL */ `
-  mutation CreateImage(
-    $input: CreateImageInput!
-    $condition: ModelImageConditionInput
-  ) {
-    createImage(input: $input, condition: $condition) {
-      id
-      itemID
-      src
-      index
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateImage = /* GraphQL */ `
-  mutation UpdateImage(
-    $input: UpdateImageInput!
-    $condition: ModelImageConditionInput
-  ) {
-    updateImage(input: $input, condition: $condition) {
-      id
-      itemID
-      src
-      index
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteImage = /* GraphQL */ `
-  mutation DeleteImage(
-    $input: DeleteImageInput!
-    $condition: ModelImageConditionInput
-  ) {
-    deleteImage(input: $input, condition: $condition) {
-      id
-      itemID
-      src
-      index
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
 export const createItem = /* GraphQL */ `
   mutation CreateItem(
     $input: CreateItemInput!
@@ -71,21 +17,7 @@ export const createItem = /* GraphQL */ `
       active
       stock_qty
       stock_measure
-      images {
-        items {
-          id
-          itemID
-          src
-          index
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
+      images
       index
       trxItems {
         items {
@@ -129,21 +61,7 @@ export const updateItem = /* GraphQL */ `
       active
       stock_qty
       stock_measure
-      images {
-        items {
-          id
-          itemID
-          src
-          index
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
+      images
       index
       trxItems {
         items {
@@ -187,21 +105,7 @@ export const deleteItem = /* GraphQL */ `
       active
       stock_qty
       stock_measure
-      images {
-        items {
-          id
-          itemID
-          src
-          index
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
+      images
       index
       trxItems {
         items {
@@ -251,10 +155,7 @@ export const createTrxItem = /* GraphQL */ `
         active
         stock_qty
         stock_measure
-        images {
-          nextToken
-          startedAt
-        }
+        images
         index
         trxItems {
           nextToken
@@ -298,10 +199,7 @@ export const updateTrxItem = /* GraphQL */ `
         active
         stock_qty
         stock_measure
-        images {
-          nextToken
-          startedAt
-        }
+        images
         index
         trxItems {
           nextToken
@@ -345,10 +243,7 @@ export const deleteTrxItem = /* GraphQL */ `
         active
         stock_qty
         stock_measure
-        images {
-          nextToken
-          startedAt
-        }
+        images
         index
         trxItems {
           nextToken
@@ -881,6 +776,7 @@ export const createBasket = /* GraphQL */ `
           active
           stock_qty
           stock_measure
+          images
           index
           basketID
           _version
@@ -944,6 +840,7 @@ export const updateBasket = /* GraphQL */ `
           active
           stock_qty
           stock_measure
+          images
           index
           basketID
           _version
@@ -1007,6 +904,7 @@ export const deleteBasket = /* GraphQL */ `
           active
           stock_qty
           stock_measure
+          images
           index
           basketID
           _version

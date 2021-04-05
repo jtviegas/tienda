@@ -1,4 +1,4 @@
-import { ModelInit, MutableModel, PersistentModelConstructor } from "../services/store/@aws-amplify/datastore";
+import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplify/datastore";
 
 export enum StockUnit {
   G = "G",
@@ -31,15 +31,6 @@ export enum AddressType {
 
 
 
-export declare class Image {
-  readonly id: string;
-  readonly itemID: string;
-  readonly src: string;
-  readonly index?: number;
-  constructor(init: ModelInit<Image>);
-  static copyOf(source: Image, mutator: (draft: MutableModel<Image>) => MutableModel<Image> | void): Image;
-}
-
 export declare class Item {
   readonly id: string;
   readonly name: string;
@@ -51,7 +42,7 @@ export declare class Item {
   readonly active: boolean;
   readonly stock_qty?: number;
   readonly stock_measure?: StockUnit | keyof typeof StockUnit;
-  readonly images?: (Image | null)[];
+  readonly images?: (string | null)[];
   readonly index?: number;
   readonly trxItems?: (TrxItem | null)[];
   readonly basketID?: string;

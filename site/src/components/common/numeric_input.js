@@ -1,12 +1,12 @@
 import React from 'react';
 
 
-let NumericInput = ({ value, dispatcher, className, step="0.01" }) => {
+let NumericInput = ({ value, dispatcher, className, step="0.01" , readOnly=false}) => {
 
     if (null !== value)
         return (
         <div>
-            <input type="number" className={className} value={value} onChange={dispatcher} step={step} />
+            <input type="number" className={className} value={value} onChange={dispatcher} step={step} readOnly={readOnly}/>
         </div>
         )
     else

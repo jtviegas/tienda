@@ -14,21 +14,7 @@ export const onCreateItem = /* GraphQL */ `
       active
       stock_qty
       stock_measure
-      images {
-        items {
-          id
-          itemID
-          src
-          index
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
+      images
       index
       trxItems {
         items {
@@ -69,21 +55,7 @@ export const onUpdateItem = /* GraphQL */ `
       active
       stock_qty
       stock_measure
-      images {
-        items {
-          id
-          itemID
-          src
-          index
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
+      images
       index
       trxItems {
         items {
@@ -124,21 +96,7 @@ export const onDeleteItem = /* GraphQL */ `
       active
       stock_qty
       stock_measure
-      images {
-        items {
-          id
-          itemID
-          src
-          index
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
+      images
       index
       trxItems {
         items {
@@ -236,6 +194,7 @@ export const onCreateBasket = /* GraphQL */ `
           active
           stock_qty
           stock_measure
+          images
           index
           basketID
           _version
@@ -296,6 +255,7 @@ export const onUpdateBasket = /* GraphQL */ `
           active
           stock_qty
           stock_measure
+          images
           index
           basketID
           _version
@@ -356,6 +316,7 @@ export const onDeleteBasket = /* GraphQL */ `
           active
           stock_qty
           stock_measure
+          images
           index
           basketID
           _version

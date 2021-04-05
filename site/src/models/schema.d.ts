@@ -1,3 +1,3 @@
-import { Schema } from '../services/store/@aws-amplify/datastore';
+import { Schema } from '@aws-amplify/datastore';
 
 export declare const schema: Schema;

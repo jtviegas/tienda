@@ -1,73 +1,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const syncImages = /* GraphQL */ `
-  query SyncImages(
-    $filter: ModelImageFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncImages(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        itemID
-        src
-        index
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getImage = /* GraphQL */ `
-  query GetImage($id: ID!) {
-    getImage(id: $id) {
-      id
-      itemID
-      src
-      index
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listImages = /* GraphQL */ `
-  query ListImages(
-    $filter: ModelImageFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listImages(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        itemID
-        src
-        index
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
 export const syncItems = /* GraphQL */ `
   query SyncItems(
     $filter: ModelItemFilterInput
@@ -92,10 +25,7 @@ export const syncItems = /* GraphQL */ `
         active
         stock_qty
         stock_measure
-        images {
-          nextToken
-          startedAt
-        }
+        images
         index
         trxItems {
           nextToken
@@ -126,21 +56,7 @@ export const getItem = /* GraphQL */ `
       active
       stock_qty
       stock_measure
-      images {
-        items {
-          id
-          itemID
-          src
-          index
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        nextToken
-        startedAt
-      }
+      images
       index
       trxItems {
         items {
@@ -186,10 +102,7 @@ export const listItems = /* GraphQL */ `
         active
         stock_qty
         stock_measure
-        images {
-          nextToken
-          startedAt
-        }
+        images
         index
         trxItems {
           nextToken
@@ -237,6 +150,7 @@ export const syncTrxItems = /* GraphQL */ `
           active
           stock_qty
           stock_measure
+          images
           index
           basketID
           _version
@@ -276,10 +190,7 @@ export const getTrxItem = /* GraphQL */ `
         active
         stock_qty
         stock_measure
-        images {
-          nextToken
-          startedAt
-        }
+        images
         index
         trxItems {
           nextToken
@@ -325,6 +236,7 @@ export const listTrxItems = /* GraphQL */ `
           active
           stock_qty
           stock_measure
+          images
           index
           basketID
           _version
@@ -799,6 +711,7 @@ export const getBasket = /* GraphQL */ `
           active
           stock_qty
           stock_measure
+          images
           index
           basketID
           _version

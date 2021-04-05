@@ -31,10 +31,9 @@ const AddressType = {
   "DELIVER": "DELIVER"
 };
 
-const { Image, Item, TrxItem, Trx, Payment, Entity, Adress, Basket } = initSchema(schema);
+const { Item, TrxItem, Trx, Payment, Entity, Adress, Basket } = initSchema(schema);
 
 export {
-  Image,
   Item,
   TrxItem,
   Trx,

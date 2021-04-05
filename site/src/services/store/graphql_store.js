@@ -2,31 +2,9 @@
 // @ts-ignore
 import { DataStore, Predicates, SortDirection } from '@aws-amplify/datastore';
 // @ts-ignore
-import { Image, Item, Basket, TrxItem, Trx, Entity, Payment, Adress } from '../../models';
+import { Item, Basket, TrxItem, Trx, Entity, Payment, Adress } from '../../models';
 
 class Store {
-
-    saveImage(image){
-        return DataStore.save(image);
-    }
-
-    getImage(id){
-        return DataStore.query(Image, id);
-    }
-    // https://docs.amplify.aws/lib/datastore/data-access/q/platform/js#predicates
-    getImages(itemId){
-        if ( null !== itemId )
-            return DataStore.query(Image, o => o.itemID("eq", itemId), {sort: o => o.index(SortDirection.ASCENDING)});
-        else
-            return DataStore.query(Image, Predicates.ALL, {sort: o => o.index(SortDirection.ASCENDING)});
-    }
-
-    deleteImage(ids){
-        if( Array.isArray(ids) && 0 < ids.length )
-            return DataStore.delete(Image, o => o.id("contains", ids));
-        else
-            return DataStore.delete(Image, Predicates.ALL);
-    }
 
     saveItem(item){
         return DataStore.save(item);

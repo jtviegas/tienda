@@ -6,12 +6,11 @@ import config from "../../common/config"
 
 
 
-let VwItems = ({items, session, dispatcher, page, admin}) =>  {
+let VwItems = ({items, session, dispatcher, page}) =>  {
     logger.info('[VwItems|in]')
-    logger.debug('[VwItems] (items: %s, session: %s, admin: %s, dispatch: %s)', 
-        JSON.stringify(Array.isArray(items) ? items.length : 0), JSON.stringify(session), 
-        JSON.stringify(admin)
-    , JSON.stringify(dispatcher), JSON.stringify(page))
+    logger.debug('[VwItems] (items: %s, session: %s, dispatch: %s)', 
+        JSON.stringify(Array.isArray(items) ? items.length : 0), JSON.stringify(session)
+        , JSON.stringify(dispatcher), JSON.stringify(page))
 
     const previousPage = page - 1
     const nextPage = page + 1
@@ -32,7 +31,7 @@ let VwItems = ({items, session, dispatcher, page, admin}) =>  {
             <div className="album py-5 bg-light">
                 <div className="container">
                     <div className="row">
-                        { items.map((o,index) => <ItemSmallWidget key={index} item={o} admin={admin} dispatcher={dispatcher} />) }
+                        { items.map((o,index) => <ItemSmallWidget key={index} item={o} dispatcher={dispatcher} session={session} />) }
                     </div>
                     <nav className="row float-right">
                         <Link className="btn btn-outline-dark btn-sm m-1" to={"/shop"}>&lt;&lt;</Link>
