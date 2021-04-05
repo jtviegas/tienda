@@ -2,7 +2,6 @@ import React, { useReducer, Fragment } from 'react';
 import logger from "../../common/logger";
 import Form from 'react-bootstrap/Form';
 import ImageCarousel from "./wgt_image_carousel"
-import {NumericInput} from "../common/numeric_input"
 import {StockUnit} from "../../models/index"
 import {Item} from "../../models/index"
 import WgtCheckbox from "../widgets/wgt_checkbox"
@@ -10,6 +9,8 @@ import WgtString from "../widgets/wgt_string"
 import WgtFile from "../widgets/wgt_file"
 import WgtNumber from "../widgets/wgt_number"
 import WgtDate from "../widgets/wgt_date"
+import WgtSelect from "../widgets/wgt_select"
+import WgtText from "../widgets/wgt_text"
 
 
 function updateItem(item, properties){
@@ -47,21 +48,21 @@ function reducer(state, action) {
     switch (action.type) {
         case 'name':
             return { ...state, name: action.value };
-        case 'changeDescription':
+        case 'description':
             return { ...state, description: action.value };
         case 'eur':
             return { ...state, eur: parseFloat(action.value) };
-        case 'changeDob':
+        case 'dob':
             return { ...state, dob: action.value };
-        case 'changeDimWdh':
+        case 'dim_wdh':
             return { ...state, dim_wdh: action.value };
-        case 'changeWeightKg':
+        case 'weight_kg':
             return { ...state, weight_kg: parseInt(action.value) };   
         case 'active':
             return { ...state, active: action.value };
-        case 'changeStockQty':
+        case 'stock_qty':
             return { ...state, stock_qty: parseFloat(action.value) };
-        case 'changeStockMeasure':
+        case 'stock_measure':
             return { ...state, stock_measure: action.value };
         case 'image':
             return { ...state, images: state.images.push(action.value) }; 
@@ -94,26 +95,12 @@ let WdgItem = ({item, admin, dispatcher}) =>  {
                 <div className="row">
                     <div className="col-12 col-lg-6 mb-3"> <WgtString name='name' value={name} edit={edit} dispatcher={local_dispatch}/></div>
                     <div className="col-12 col-md-6 col-lg-3 mb-3"><WgtNumber name='eur' value={eur} edit={edit} dispatcher={local_dispatch} label='price' symbol='€'/></div>
-
                     <div className="col-12 col-md-6 col-lg-3 mb-3"><WgtDate name='dob' value={dob} edit={edit} dispatcher={local_dispatch} label='date'/></div>
-                    
-                    <div className="col-12 mb-3">
-                        <label htmlFor="description">description</label>
-                        <textarea className="form-control" rows="3" id="description" value={description} 
-                        onChange={e => local_dispatch({ type: 'changeDescription', value: e.target.value})} readOnly={!edit} />
-                    </div>
-                    
+                    <div className="col-12 mb-3"><WgtText name='description' value={description} edit={edit} dispatcher={local_dispatch}/></div>
                     <div className="col-12 col-md-6 col-lg-3 mb-3"><WgtNumber name='weight_kg' value={weight_kg} edit={edit} dispatcher={local_dispatch} label='weight' symbol='kg'/></div>
-
-                    <div className="col-12 col-md-6 col-lg-3 mb-3"><WgtString name='dim_wdh' value={dim_wdh} edit={edit} dispatcher={local_dispatch} label='dimension: width x depth x height'/></div></div>
+                    <div className="col-12 col-md-6 col-lg-3 mb-3"><WgtString name='dim_wdh' value={dim_wdh} edit={edit} dispatcher={local_dispatch} label='dimension: width x depth x height'/></div>
                     <div className="col-12 col-md-6 col-lg-3 mb-3"><WgtNumber name='stock_qty' value={stock_qty} edit={edit} dispatcher={local_dispatch} label='stock quantity' step="1"/></div>
-                        
-                    <div className="col-12 col-md-6 col-lg-3 mb-3">
-                        <label htmlFor="stock_measure">stock measure</label>
-                        <select className="form-control" id="stock_measure" value={stock_measure} onChange={e => local_dispatch({ type: 'changeStockMeasure', value: e.target.value})} disabled={!edit}>
-                            { Object.values(StockUnit).map((o, index) => <option key={index}>{o}</option>) }
-                        </select>
-                    </div>
+                    <div className="col-12 col-md-6 col-lg-3 mb-3"><WgtSelect name='stock_measure' value={stock_measure} options={Object.values(StockUnit)} edit={edit} dispatcher={local_dispatch} label='stock measure'/></div>
                 </div>
 
                 
@@ -144,9 +131,6 @@ let WdgItem = ({item, admin, dispatcher}) =>  {
                     }
 
                 </div>
-
-                
-
 
                 {/* <div>
                     <label>id: {id} </label><br/>
