@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import logger from "../../common/logger";
 import { S3Image } from 'aws-amplify-react';
 
-let ImageCarousel = ({imageKeys, admin, edit, dispatcher}) =>  {
+let ImageCarousel = ({imageKeys, edit, dispatcher}) =>  {
     logger.debug('[ImageCarousel|in]: (%s)', JSON.stringify(imageKeys))
     return (
         <Fragment>
@@ -16,7 +16,7 @@ let ImageCarousel = ({imageKeys, admin, edit, dispatcher}) =>  {
                     {/* <img src={o.src} className="d-block w-80 mx-auto" width="100%" height="80%" aria-label=" :  "/> */}
                     <S3Image imgKey={o} className="d-block w-80 mx-auto" width="100%" height="80%" aria-label=" :  "/>
                     <div className="carousel-caption d-none d-md-block">
-                        <button type="button" className="btn btn-primary" onClick={e => dispatcher({ type: 'removeImage', value: o.id})}>remove image</button> 
+                        <button type="button" className="btn btn-primary" onClick={e => dispatcher({ type: 'removeImage', value: o})}>remove image</button> 
                     </div>
                 </div>
             ) }

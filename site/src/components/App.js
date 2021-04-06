@@ -1,11 +1,11 @@
-import React, { useReducer} from 'react';
+import React, { useReducer, useEffect} from 'react';
 import './App.css';
 import logger from "../common/logger";
 import stateManager from "../services/state_manager";
 import Home from "./Home"
-import { Hub, Logger } from 'aws-amplify';
+import { Hub } from 'aws-amplify';
 
-const initial_state = {items: [], session: null }
+const initial_state = {items: [], session: null, admin: false }
 
 export default function App() {
   logger.info('[App|in]')
@@ -14,8 +14,11 @@ export default function App() {
   const dispatcher = stateManager.getDispatcher(dispatch);
   Hub.listen('auth', stateManager.hubListener(dispatcher));
 
+  useEffect(() => { dispatcher( {type:'session.find'} ); }, []);
+
+  const admin = state.session && Array.isArray(state.session.groups) && ( state.session.groups.includes('dev') || state.session.groups.includes('admin') )
   const result = (
-      <Home {...state} dispatcher={dispatcher} />
+      <Home {...state} dispatcher={dispatcher} admin={admin} />
   );
   
   logger.debug('[App|out]')

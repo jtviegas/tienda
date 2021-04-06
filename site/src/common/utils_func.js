@@ -15,6 +15,18 @@ const utils_func = {
         const index = items.findIndex(o => o.id === image.itemID);
         // items[index].images.push(image)
         logger.info('[utils_func.addImageToItem|out] => %s', JSON.stringify(items))
+    },
+    removeFromArray: (images, o) => {
+        logger.info('[removeFromArray|in] (%s, %s)', JSON.stringify(images), JSON.stringify(o))
+        const idx = images.indexOf(o)
+        let result = images
+        if (-1 < idx){
+            logger.info('[removeFromArray] removing index %d', idx)
+            result = images.slice()
+            result.splice(idx,1)
+        }
+        logger.info('[removeFromArray|out] => %s', JSON.stringify(result))
+        return result
     }
 }
 

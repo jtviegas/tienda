@@ -1,29 +1,26 @@
-import React, { Fragment, useReducer, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Redirect, useRouteMatch, useLocation, useHistory } from "react-router-dom";
-import VwItem from './vw_item';
+import React, { Fragment } from 'react';
+import { Route, useRouteMatch, useLocation} from "react-router-dom";
 import logger from "../../common/logger";
+import VwItem from './vw_item';
 import VwItems from "./vw_items"
-import { EntityType } from "../../models/index"
+import ShopHeader from "../shop/header"
 
-const Shop = ( {items, session, dispatcher} ) =>  {
-    logger.info('[Shop|in])')
-    logger.debug('[Shop] (items size: %s , session: %s, dispatcher: %s)', 
-    JSON.stringify(Array.isArray(items) ? items.length : 0), JSON.stringify(session), 
-    JSON.stringify(dispatcher))
+const Shop = ( {items, session, dispatcher, admin} ) =>  {
+    logger.debug(`[Shop|in] (items size: ${items.length} , ${JSON.stringify(session)}, dispatcher, ${admin})`) 
     
     const pageParam = new URLSearchParams(useLocation().search).get('page');
     const { url, path } = useRouteMatch()
     const page = null !== pageParam ? parseInt(pageParam) : 0;
+    logger.debug(`[Shop] (url: ${url} | path: ${path} | pageParam: ${pageParam})`)
 
-    logger.debug('[Shop] (url: %s | path: %s | pageParam: %s)', JSON.stringify(url), JSON.stringify(path), JSON.stringify(pageParam))
-
-    logger.debug('[Shop] path: %s', `${path}/:itemid`)
     const result = (
             <Fragment>
-                <Route path={"/shop/:itemid"} render={() => <VwItem {...{items, session, dispatcher} }/>} />
-                <Route exact path={"/shop"} render={() => <VwItems {...{items, session,dispatcher, page} } />} />       
+                <ShopHeader admin={admin}/>
+                <Route path={"/shop/:itemid"} render={() => <VwItem {...{items, session, dispatcher, admin} }/>} />
+                <Route exact path={"/shop"} render={() => <VwItems {...{items, session,dispatcher, page, admin} } />} />       
             </Fragment>
     ); 
+
     logger.debug('[Shop|out]')
     return result;
 };

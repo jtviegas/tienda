@@ -6,7 +6,7 @@ import config from "../../common/config"
 
 
 
-let VwItems = ({items, session, dispatcher, page}) =>  {
+let VwItems = ({items, session, dispatcher, page, admin}) =>  {
     logger.info('[VwItems|in]')
     logger.debug('[VwItems] (items: %s, session: %s, dispatch: %s)', 
         JSON.stringify(Array.isArray(items) ? items.length : 0), JSON.stringify(session)

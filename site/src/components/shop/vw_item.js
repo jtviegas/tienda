@@ -1,32 +1,27 @@
-import React, { Fragment } from 'react';
+import React, { useReducer, Fragment } from 'react';
 import { useParams, useRouteMatch, useLocation } from "react-router-dom";
+import Feedback from '../../../node_modules/react-bootstrap/esm/Feedback';
 import logger from "../../common/logger";
-import WdgItem from "./wgt_item"
+import WgtItem from "../widgets/wgt_item"
+import WgtButton from "../widgets/wgt_button"
 
 
-
-let VwItem = ({items, session, dispatcher}) =>  {
-    logger.info('[VwItem|in] (items length: %s, %s, <dispatcher>)', JSON.stringify(Array.isArray(items) ? items.length : 0), JSON.stringify(Array.isArray(items)))
+let VwItem = ({items, session, dispatcher, admin}) =>  {
     const { itemid } = useParams()
-    logger.info(`[VwItem] going to render item id: ${itemid}`)
+    logger.info(`[VwItem|in] (items length: ${items.length}, ${session}, <dispatcher>, ${admin}, itemid: ${itemid})`)
 
-    const item = items.filter(o => o.id === itemid)[0]
+    const item = ("0" === itemid ? {} : items.filter(o => o.id === itemid)[0])
 
     if( item ){
-        logger.debug('[VwItem] item found: %s', JSON.stringify(item.id))
-        let itemWidget;
-        /*
-        if (edit){
-            itemWidget = <WdgItemEdit item={item} user={user}/>
-        }
-        else */ 
-            itemWidget = <WdgItem {... {item, session, dispatcher}} />
-        
-        return (
-            <Fragment>
-            {itemWidget}
-            </Fragment>
-        ); 
+        logger.debug(`[VwItem] item found: ${item}`)
+        return  (
+            <div className="container">
+                <form> 
+                <WgtItem {... {item, dispatcher, admin}} />
+                
+                </form>
+            </div>
+            );
     }
     else
         return null;
