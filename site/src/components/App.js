@@ -2,17 +2,20 @@ import React, { useReducer, useEffect} from 'react';
 import './App.css';
 import logger from "../common/logger";
 import stateManager from "../services/state_manager";
+import eventListener from "../services/event_listener";
 import Home from "./Home"
+import stateReducer from "../services/app_state_reducer"
 import { Hub } from 'aws-amplify';
 
-const initial_state = {items: [], session: null, admin: false }
+const initial_state = { items: [], session: null, admin: false}
 
 export default function App() {
-  logger.info('[App|in]')
+  logger.debug('[App|in]')
 
-  const [ state, dispatch ] = useReducer(stateManager.reducer, initial_state);
-  const dispatcher = stateManager.getDispatcher(dispatch);
-  Hub.listen('auth', stateManager.hubListener(dispatcher));
+  const [ state, reducer ] = useReducer(stateReducer, initial_state);
+  const dispatcher = stateManager(reducer);
+  
+  Hub.listen('auth', eventListener(dispatcher));
 
   useEffect(() => { dispatcher( {type:'session.find'} ); }, []);
 

@@ -33,9 +33,9 @@ class DataStore {
     }
 
     saveImage = (image) => {
-        logger.info("[DataStore|saveImage|in] (%s)", image)
+        logger.info(`[DataStore|saveImage|in] (name: ${image.name}, type: ${image.type})`)
         const result = this.fileStore.putObject(image.name, image, { level: 'public', contentType: image.type })
-        logger.debug("[DataStore|saveItem|out] %s", result)
+        logger.info("[DataStore|saveItem|out] %s", result)
         return result;
     }
 

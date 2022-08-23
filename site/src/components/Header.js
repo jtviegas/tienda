@@ -5,9 +5,7 @@ import logger from "../common/logger";
 import { withRouter} from "react-router";
 
 let Header = ({session, dispatcher}) => {
-    logger.info('[Header|in]');
-    logger.debug('[Header|in] (session: %s, dispatcher: %s)', JSON.stringify(session), typeof(dispatcher));
-
+    logger.debug(`[Header|in] (${session}, ${dispatcher})`);
     const goAuth = function(history) {
         return () => {
             logger.debug("[goAuth|in]")
@@ -22,7 +20,6 @@ let Header = ({session, dispatcher}) => {
             logger.debug("[goAuth|out]")
         }
     }(useHistory());
-
 
     let authButton = null;
     let sessionLabel = null;

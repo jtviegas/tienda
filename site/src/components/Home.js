@@ -8,17 +8,19 @@ import logger from "../common/logger";
 import Auth from "./auth/index";
 
 export default function Home({items, session, dispatcher, admin}) {
-  logger.debug(`[Home|in] (items.length: ${items.length}, session: ${session}, <dispatcher>, ${admin})`);
+  logger.info(`[Home|in] (items.length: ${items.length}, session: ${session}, <dispatcher>, ${admin})`);
 
   const result = (
       <Router>
-          <Header { ...{session, dispatcher, admin} } />
-          <Switch>
-            <Route path={"/shop"} render={() => <Shop { ...{ items, session, dispatcher, admin } } />} />
-            <Route exact={true} path="/auth" render={() => <Auth />}  />
-            <Route exact={true} path={"/"} render={() => <Redirect to={"/shop"} />} />
-          </Switch>
-          <Footer/>
+          <div className="container-fluid">
+            <Header { ...{session, dispatcher, admin} } />
+            <Switch>
+              <Route path={"/shop"} render={() => <Shop { ...{ items, session, dispatcher, admin } } />} />
+              <Route exact={true} path="/auth" render={() => <Auth />}  />
+              <Route exact={true} path={"/"} render={() => <Redirect to={"/shop"} />} />
+            </Switch>
+            <Footer/>
+          </div>
       </Router>
   );
   logger.debug('[Home|out]')

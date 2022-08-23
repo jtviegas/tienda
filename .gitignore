@@ -147,3 +147,4 @@ amplifytools.xcconfig
 .secret-*.secrets
 .vscode
 .secrets
+.idea

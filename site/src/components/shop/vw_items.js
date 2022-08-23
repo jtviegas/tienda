@@ -28,7 +28,7 @@ let VwItems = ({items, session, dispatcher, page, admin}) =>  {
         
         logger.debug('[VwItems]: going to render %d items', items.length)
         return (
-            <div className="album py-5 bg-light">
+            <div className="album py-5´´">
                 <div className="container">
                     <div className="row">
                         { items.map((o,index) => <ItemSmallWidget key={index} item={o} dispatcher={dispatcher} session={session} />) }

@@ -20,12 +20,13 @@ let WgtFile = ({name, dispatcher, label=null, extraclasses=null}) =>  {
     logger.info(`[WgtFile|in] (${name}, <dispatcher>, ${label}, ${extraclasses})`)
 
     const [{ new_file }, local_dispatch] = useReducer(reducer, {new_file: null}); 
-
+    
     return (
         <Fragment>                  
-            <WgtButton name={name} enabled={null !== new_file} value={new_file} extraclasses={extraclasses} label="add" dispatcher={dispatcher}/>
+            <WgtButton name={name} enabled={null !== new_file} value={new_file} extraclasses={extraclasses} label="add" 
+            onclick={() => dispatcher({ type: name, value: new_file}).then(local_dispatch({ type: 'new_file', value: null}))}/>
             <input type="file" className={`btn btn-primary ${extraclasses}`} name={ label ? label :  name } 
-                onChange={e => local_dispatch({ type: 'new_file', value: e.target.files[0]})} />
+                onChange={e => {e.preventDefault(); local_dispatch({ type: 'new_file', value: e.target.files[0]})}} />
         </Fragment>
     ); 
 };
