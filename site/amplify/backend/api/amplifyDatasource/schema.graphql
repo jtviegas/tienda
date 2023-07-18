@@ -1,0 +1,70 @@
+enum Warehouse {
+  ONE
+  TWO
+}
+
+type Stock @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  warehouse: Warehouse
+  unit: Unit
+  value: Float
+  itemID: ID! @index(name: "byItem")
+}
+
+enum AssetType {
+  IMAGE
+  VIDEO
+}
+
+type Address @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  street_number_door: String
+  local: String
+  postal_code: String
+  country: String
+  entityID: ID! @index(name: "byEntity")
+}
+
+type Entity @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  is_public: Boolean
+  addresses: [Address] @hasMany(indexName: "byEntity", fields: ["id"])
+  email: String
+  phone: String
+  tax_id: String
+}
+
+enum Unit {
+  KG
+  LTR
+  COUNT
+  METER
+}
+
+type Item @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  description: String
+  date: AWSDate
+  assets: [Asset] @hasMany(indexName: "byItem", fields: ["id"])
+  active: Boolean
+  dim_width_m: Float
+  dim_height_m: Float
+  dim_depth_m: Float
+  weight_kg: Float
+  tags: AWSJSON
+  tax: Float
+  net_price: String
+  stocks: [Stock] @hasMany(indexName: "byItem", fields: ["id"])
+}
+
+type Asset @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  src: String
+  index: Int
+  tags: AWSJSON
+  typ: AssetType
+  description: String
+  itemID: ID! @index(name: "byItem")
+}

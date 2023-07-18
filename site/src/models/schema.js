@@ -1,7 +1,7 @@
 export const schema = {
     "models": {
-        "Item": {
-            "name": "Item",
+        "Stock": {
+            "name": "Stock",
             "fields": {
                 "id": {
                     "name": "id",
@@ -10,201 +10,61 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "name": {
-                    "name": "name",
+                "warehouse": {
+                    "name": "warehouse",
                     "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "description": {
-                    "name": "description",
-                    "isArray": false,
-                    "type": "String",
+                    "type": {
+                        "enum": "Warehouse"
+                    },
                     "isRequired": false,
                     "attributes": []
                 },
-                "eur": {
-                    "name": "eur",
+                "unit": {
+                    "name": "unit",
                     "isArray": false,
-                    "type": "Float",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "dob": {
-                    "name": "dob",
-                    "isArray": false,
-                    "type": "Int",
+                    "type": {
+                        "enum": "Unit"
+                    },
                     "isRequired": false,
                     "attributes": []
                 },
-                "dim_wdh": {
-                    "name": "dim_wdh",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "weight_kg": {
-                    "name": "weight_kg",
+                "value": {
+                    "name": "value",
                     "isArray": false,
                     "type": "Float",
                     "isRequired": false,
                     "attributes": []
                 },
-                "active": {
-                    "name": "active",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "stock_qty": {
-                    "name": "stock_qty",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "stock_measure": {
-                    "name": "stock_measure",
-                    "isArray": false,
-                    "type": {
-                        "enum": "StockUnit"
-                    },
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "images": {
-                    "name": "images",
-                    "isArray": true,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
-                },
-                "index": {
-                    "name": "index",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "trxItems": {
-                    "name": "trxItems",
-                    "isArray": true,
-                    "type": {
-                        "model": "TrxItem"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "item"
-                    }
-                },
-                "basketID": {
-                    "name": "basketID",
+                "itemID": {
+                    "name": "itemID",
                     "isArray": false,
                     "type": "ID",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
                 }
             },
             "syncable": true,
-            "pluralName": "Items",
+            "pluralName": "Stocks",
             "attributes": [
                 {
                     "type": "model",
                     "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byBasket",
-                        "fields": [
-                            "basketID"
-                        ]
-                    }
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "delete",
-                                    "update"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "TrxItem": {
-            "name": "TrxItem",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "qty": {
-                    "name": "qty",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "eur": {
-                    "name": "eur",
-                    "isArray": false,
-                    "type": "Float",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "tax": {
-                    "name": "tax",
-                    "isArray": false,
-                    "type": "Float",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "item": {
-                    "name": "item",
-                    "isArray": false,
-                    "type": {
-                        "model": "Item"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "itemID"
-                    }
-                },
-                "trxID": {
-                    "name": "trxID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                }
-            },
-            "syncable": true,
-            "pluralName": "TrxItems",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {
-                        "subscriptions": null
-                    }
                 },
                 {
                     "type": "key",
@@ -216,15 +76,6 @@ export const schema = {
                     }
                 },
                 {
-                    "type": "key",
-                    "properties": {
-                        "name": "byTrx",
-                        "fields": [
-                            "trxID"
-                        ]
-                    }
-                },
-                {
                     "type": "auth",
                     "properties": {
                         "rules": [
@@ -232,8 +83,9 @@ export const schema = {
                                 "allow": "public",
                                 "operations": [
                                     "create",
+                                    "update",
                                     "delete",
-                                    "update"
+                                    "read"
                                 ]
                             }
                         ]
@@ -241,8 +93,8 @@ export const schema = {
                 }
             ]
         },
-        "Trx": {
-            "name": "Trx",
+        "Address": {
+            "name": "Address",
             "fields": {
                 "id": {
                     "name": "id",
@@ -251,161 +103,33 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "buyer_id": {
-                    "name": "buyer_id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "buyer_name": {
-                    "name": "buyer_name",
+                "street_number_door": {
+                    "name": "street_number_door",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "buyer_phone": {
-                    "name": "buyer_phone",
+                "local": {
+                    "name": "local",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "buyer_email": {
-                    "name": "buyer_email",
+                "postal_code": {
+                    "name": "postal_code",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "buyer_fiscal_id": {
-                    "name": "buyer_fiscal_id",
+                "country": {
+                    "name": "country",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
-                },
-                "deliver_address_id": {
-                    "name": "deliver_address_id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "deliver_address_house": {
-                    "name": "deliver_address_house",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "deliver_address_road": {
-                    "name": "deliver_address_road",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "deliver_address_city": {
-                    "name": "deliver_address_city",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "deliver_address_postalcode": {
-                    "name": "deliver_address_postalcode",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "deliver_address_country": {
-                    "name": "deliver_address_country",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "fiscal_address_id": {
-                    "name": "fiscal_address_id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "fiscal_address_house": {
-                    "name": "fiscal_address_house",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "fiscal_address_road": {
-                    "name": "fiscal_address_road",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "fiscal_address_city": {
-                    "name": "fiscal_address_city",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "fiscal_address_postal_code": {
-                    "name": "fiscal_address_postal_code",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "fiscal_address_country": {
-                    "name": "fiscal_address_country",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "status": {
-                    "name": "status",
-                    "isArray": false,
-                    "type": {
-                        "enum": "TrxStatus"
-                    },
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "items": {
-                    "name": "items",
-                    "isArray": true,
-                    "type": {
-                        "model": "TrxItem"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "trxID"
-                    }
-                },
-                "payments": {
-                    "name": "payments",
-                    "isArray": true,
-                    "type": {
-                        "model": "Payment"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "trxID"
-                    }
                 },
                 "entityID": {
                     "name": "entityID",
@@ -413,16 +137,30 @@ export const schema = {
                     "type": "ID",
                     "isRequired": true,
                     "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
                 }
             },
             "syncable": true,
-            "pluralName": "Trxes",
+            "pluralName": "Addresses",
             "attributes": [
                 {
                     "type": "model",
-                    "properties": {
-                        "subscriptions": null
-                    }
+                    "properties": {}
                 },
                 {
                     "type": "key",
@@ -441,96 +179,9 @@ export const schema = {
                                 "allow": "public",
                                 "operations": [
                                     "create",
+                                    "update",
                                     "delete",
-                                    "update"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "Payment": {
-            "name": "Payment",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "id_external": {
-                    "name": "id_external",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "source": {
-                    "name": "source",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "value": {
-                    "name": "value",
-                    "isArray": false,
-                    "type": "Float",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "currency": {
-                    "name": "currency",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "status": {
-                    "name": "status",
-                    "isArray": false,
-                    "type": {
-                        "enum": "PaymentStatus"
-                    },
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "trxID": {
-                    "name": "trxID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                }
-            },
-            "syncable": true,
-            "pluralName": "Payments",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byTrx",
-                        "fields": [
-                            "trxID"
-                        ]
-                    }
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "delete",
-                                    "update"
+                                    "read"
                                 ]
                             }
                         ]
@@ -548,24 +199,38 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "first_name": {
-                    "name": "first_name",
+                "name": {
+                    "name": "name",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "last_name": {
-                    "name": "last_name",
+                "is_public": {
+                    "name": "is_public",
                     "isArray": false,
-                    "type": "String",
+                    "type": "Boolean",
                     "isRequired": false,
                     "attributes": []
                 },
-                "dob": {
-                    "name": "dob",
+                "addresses": {
+                    "name": "addresses",
+                    "isArray": true,
+                    "type": {
+                        "model": "Address"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "entityID"
+                    }
+                },
+                "email": {
+                    "name": "email",
                     "isArray": false,
-                    "type": "Int",
+                    "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -576,63 +241,28 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "email": {
-                    "name": "email",
+                "tax_id": {
+                    "name": "tax_id",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "fiscal_id": {
-                    "name": "fiscal_id",
+                "createdAt": {
+                    "name": "createdAt",
                     "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "adresses": {
-                    "name": "adresses",
-                    "isArray": true,
-                    "type": {
-                        "model": "Adress"
-                    },
+                    "type": "AWSDateTime",
                     "isRequired": false,
                     "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "entityID"
-                    }
+                    "isReadOnly": true
                 },
-                "transactions": {
-                    "name": "transactions",
-                    "isArray": true,
-                    "type": {
-                        "model": "Trx"
-                    },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
                     "isRequired": false,
                     "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "entityID"
-                    }
-                },
-                "active": {
-                    "name": "active",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "type": {
-                    "name": "type",
-                    "isArray": false,
-                    "type": {
-                        "enum": "EntityType"
-                    },
-                    "isRequired": true,
-                    "attributes": []
+                    "isReadOnly": true
                 }
             },
             "syncable": true,
@@ -640,9 +270,7 @@ export const schema = {
             "attributes": [
                 {
                     "type": "model",
-                    "properties": {
-                        "subscriptions": null
-                    }
+                    "properties": {}
                 },
                 {
                     "type": "auth",
@@ -652,8 +280,9 @@ export const schema = {
                                 "allow": "public",
                                 "operations": [
                                     "create",
+                                    "update",
                                     "delete",
-                                    "update"
+                                    "read"
                                 ]
                             }
                         ]
@@ -661,8 +290,8 @@ export const schema = {
                 }
             ]
         },
-        "Adress": {
-            "name": "Adress",
+        "Item": {
+            "name": "Item",
             "fields": {
                 "id": {
                     "name": "id",
@@ -671,56 +300,40 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "house": {
-                    "name": "house",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "road": {
-                    "name": "road",
+                "name": {
+                    "name": "name",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "city": {
-                    "name": "city",
+                "description": {
+                    "name": "description",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
-                "postal_code": {
-                    "name": "postal_code",
+                "date": {
+                    "name": "date",
                     "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
+                    "type": "AWSDate",
+                    "isRequired": false,
                     "attributes": []
                 },
-                "country": {
-                    "name": "country",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "type": {
-                    "name": "type",
-                    "isArray": false,
+                "assets": {
+                    "name": "assets",
+                    "isArray": true,
                     "type": {
-                        "enum": "AddressType"
+                        "model": "Asset"
                     },
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "entityID": {
-                    "name": "entityID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "itemID"
+                    }
                 },
                 "active": {
                     "name": "active",
@@ -728,25 +341,93 @@ export const schema = {
                     "type": "Boolean",
                     "isRequired": false,
                     "attributes": []
+                },
+                "dim_width_m": {
+                    "name": "dim_width_m",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "dim_height_m": {
+                    "name": "dim_height_m",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "dim_depth_m": {
+                    "name": "dim_depth_m",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "weight_kg": {
+                    "name": "weight_kg",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "tags": {
+                    "name": "tags",
+                    "isArray": false,
+                    "type": "AWSJSON",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "tax": {
+                    "name": "tax",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "net_price": {
+                    "name": "net_price",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "stocks": {
+                    "name": "stocks",
+                    "isArray": true,
+                    "type": {
+                        "model": "Stock"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "itemID"
+                    }
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
                 }
             },
             "syncable": true,
-            "pluralName": "Adresses",
+            "pluralName": "Items",
             "attributes": [
                 {
                     "type": "model",
-                    "properties": {
-                        "subscriptions": null
-                    }
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byEntity",
-                        "fields": [
-                            "entityID"
-                        ]
-                    }
+                    "properties": {}
                 },
                 {
                     "type": "auth",
@@ -756,8 +437,9 @@ export const schema = {
                                 "allow": "public",
                                 "operations": [
                                     "create",
+                                    "update",
                                     "delete",
-                                    "update"
+                                    "read"
                                 ]
                             }
                         ]
@@ -765,8 +447,8 @@ export const schema = {
                 }
             ]
         },
-        "Basket": {
-            "name": "Basket",
+        "Asset": {
+            "name": "Asset",
             "fields": {
                 "id": {
                     "name": "id",
@@ -775,36 +457,69 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "items": {
-                    "name": "items",
-                    "isArray": true,
-                    "type": {
-                        "model": "Item"
-                    },
+                "src": {
+                    "name": "src",
+                    "isArray": false,
+                    "type": "String",
                     "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "basketID"
-                    }
+                    "attributes": []
                 },
-                "entity": {
-                    "name": "entity",
+                "index": {
+                    "name": "index",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "tags": {
+                    "name": "tags",
+                    "isArray": false,
+                    "type": "AWSJSON",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "typ": {
+                    "name": "typ",
                     "isArray": false,
                     "type": {
-                        "model": "Entity"
+                        "enum": "AssetType"
                     },
                     "isRequired": false,
+                    "attributes": []
+                },
+                "description": {
+                    "name": "description",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "itemID": {
+                    "name": "itemID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
                     "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "entityID"
-                    }
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
                 }
             },
             "syncable": true,
-            "pluralName": "Baskets",
+            "pluralName": "Assets",
             "attributes": [
                 {
                     "type": "model",
@@ -813,9 +528,9 @@ export const schema = {
                 {
                     "type": "key",
                     "properties": {
-                        "name": "byEntity",
+                        "name": "byItem",
                         "fields": [
-                            "entityID"
+                            "itemID"
                         ]
                     }
                 },
@@ -827,8 +542,9 @@ export const schema = {
                                 "allow": "public",
                                 "operations": [
                                     "create",
+                                    "update",
                                     "delete",
-                                    "update"
+                                    "read"
                                 ]
                             }
                         ]
@@ -838,46 +554,30 @@ export const schema = {
         }
     },
     "enums": {
-        "StockUnit": {
-            "name": "StockUnit",
+        "Warehouse": {
+            "name": "Warehouse",
             "values": [
-                "G",
-                "ML",
-                "COUNT"
+                "ONE",
+                "TWO"
             ]
         },
-        "TrxStatus": {
-            "name": "TrxStatus",
+        "Unit": {
+            "name": "Unit",
             "values": [
-                "STARTED",
-                "COMPLETED",
-                "CANCELLED"
+                "KG",
+                "LTR",
+                "COUNT",
+                "METER"
             ]
         },
-        "PaymentStatus": {
-            "name": "PaymentStatus",
+        "AssetType": {
+            "name": "AssetType",
             "values": [
-                "STARTED",
-                "COMPLETED",
-                "FAILED"
-            ]
-        },
-        "EntityType": {
-            "name": "EntityType",
-            "values": [
-                "ADMIN",
-                "PRIVATE",
-                "ORGANIZATION"
-            ]
-        },
-        "AddressType": {
-            "name": "AddressType",
-            "values": [
-                "FISCAL",
-                "DELIVER"
+                "IMAGE",
+                "VIDEO"
             ]
         }
     },
     "nonModels": {},
-    "version": "19b2b5de86b8889bf6be34bd0a1d1c3b"
+    "version": "2f5a0f5d4921361b8c3b1d18bc9ea470"
 };

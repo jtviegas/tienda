@@ -1,139 +1,114 @@
 import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplify/datastore";
 
-export enum StockUnit {
-  G = "G",
-  ML = "ML",
-  COUNT = "COUNT"
+export enum Warehouse {
+  ONE = "ONE",
+  TWO = "TWO"
 }
 
-export enum TrxStatus {
-  STARTED = "STARTED",
-  COMPLETED = "COMPLETED",
-  CANCELLED = "CANCELLED"
+export enum Unit {
+  KG = "KG",
+  LTR = "LTR",
+  COUNT = "COUNT",
+  METER = "METER"
 }
 
-export enum PaymentStatus {
-  STARTED = "STARTED",
-  COMPLETED = "COMPLETED",
-  FAILED = "FAILED"
-}
-
-export enum EntityType {
-  ADMIN = "ADMIN",
-  PRIVATE = "PRIVATE",
-  ORGANIZATION = "ORGANIZATION"
-}
-
-export enum AddressType {
-  FISCAL = "FISCAL",
-  DELIVER = "DELIVER"
+export enum AssetType {
+  IMAGE = "IMAGE",
+  VIDEO = "VIDEO"
 }
 
 
 
-export declare class Item {
+type StockMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type AddressMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type EntityMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type ItemMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type AssetMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+export declare class Stock {
   readonly id: string;
-  readonly name: string;
-  readonly description?: string;
-  readonly eur: number;
-  readonly dob?: number;
-  readonly dim_wdh?: string;
-  readonly weight_kg?: number;
-  readonly active: boolean;
-  readonly stock_qty?: number;
-  readonly stock_measure?: StockUnit | keyof typeof StockUnit;
-  readonly images?: (string | null)[];
-  readonly index?: number;
-  readonly trxItems?: (TrxItem | null)[];
-  readonly basketID?: string;
-  constructor(init: ModelInit<Item>);
-  static copyOf(source: Item, mutator: (draft: MutableModel<Item>) => MutableModel<Item> | void): Item;
+  readonly warehouse?: Warehouse | keyof typeof Warehouse | null;
+  readonly unit?: Unit | keyof typeof Unit | null;
+  readonly value?: number | null;
+  readonly itemID: string;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  constructor(init: ModelInit<Stock, StockMetaData>);
+  static copyOf(source: Stock, mutator: (draft: MutableModel<Stock, StockMetaData>) => MutableModel<Stock, StockMetaData> | void): Stock;
 }
 
-export declare class TrxItem {
+export declare class Address {
   readonly id: string;
-  readonly qty: number;
-  readonly eur: number;
-  readonly tax: number;
-  readonly item?: Item;
-  readonly trxID: string;
-  constructor(init: ModelInit<TrxItem>);
-  static copyOf(source: TrxItem, mutator: (draft: MutableModel<TrxItem>) => MutableModel<TrxItem> | void): TrxItem;
-}
-
-export declare class Trx {
-  readonly id: string;
-  readonly buyer_id: string;
-  readonly buyer_name?: string;
-  readonly buyer_phone?: string;
-  readonly buyer_email?: string;
-  readonly buyer_fiscal_id?: string;
-  readonly deliver_address_id: string;
-  readonly deliver_address_house?: string;
-  readonly deliver_address_road?: string;
-  readonly deliver_address_city?: string;
-  readonly deliver_address_postalcode?: string;
-  readonly deliver_address_country?: string;
-  readonly fiscal_address_id: string;
-  readonly fiscal_address_house?: string;
-  readonly fiscal_address_road?: string;
-  readonly fiscal_address_city?: string;
-  readonly fiscal_address_postal_code?: string;
-  readonly fiscal_address_country?: string;
-  readonly status?: TrxStatus | keyof typeof TrxStatus;
-  readonly items?: (TrxItem | null)[];
-  readonly payments?: (Payment | null)[];
+  readonly street_number_door?: string | null;
+  readonly local?: string | null;
+  readonly postal_code?: string | null;
+  readonly country?: string | null;
   readonly entityID: string;
-  constructor(init: ModelInit<Trx>);
-  static copyOf(source: Trx, mutator: (draft: MutableModel<Trx>) => MutableModel<Trx> | void): Trx;
-}
-
-export declare class Payment {
-  readonly id: string;
-  readonly id_external?: string;
-  readonly source?: string;
-  readonly value: number;
-  readonly currency: string;
-  readonly status: PaymentStatus | keyof typeof PaymentStatus;
-  readonly trxID: string;
-  constructor(init: ModelInit<Payment>);
-  static copyOf(source: Payment, mutator: (draft: MutableModel<Payment>) => MutableModel<Payment> | void): Payment;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  constructor(init: ModelInit<Address, AddressMetaData>);
+  static copyOf(source: Address, mutator: (draft: MutableModel<Address, AddressMetaData>) => MutableModel<Address, AddressMetaData> | void): Address;
 }
 
 export declare class Entity {
   readonly id: string;
-  readonly first_name?: string;
-  readonly last_name?: string;
-  readonly dob?: number;
-  readonly phone?: string;
-  readonly email?: string;
-  readonly fiscal_id?: string;
-  readonly adresses?: (Adress | null)[];
-  readonly transactions?: (Trx | null)[];
-  readonly active?: boolean;
-  readonly type: EntityType | keyof typeof EntityType;
-  constructor(init: ModelInit<Entity>);
-  static copyOf(source: Entity, mutator: (draft: MutableModel<Entity>) => MutableModel<Entity> | void): Entity;
+  readonly name?: string | null;
+  readonly is_public?: boolean | null;
+  readonly addresses?: (Address | null)[] | null;
+  readonly email?: string | null;
+  readonly phone?: string | null;
+  readonly tax_id?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  constructor(init: ModelInit<Entity, EntityMetaData>);
+  static copyOf(source: Entity, mutator: (draft: MutableModel<Entity, EntityMetaData>) => MutableModel<Entity, EntityMetaData> | void): Entity;
 }
 
-export declare class Adress {
+export declare class Item {
   readonly id: string;
-  readonly house: string;
-  readonly road?: string;
-  readonly city: string;
-  readonly postal_code: string;
-  readonly country: string;
-  readonly type: AddressType | keyof typeof AddressType;
-  readonly entityID: string;
-  readonly active?: boolean;
-  constructor(init: ModelInit<Adress>);
-  static copyOf(source: Adress, mutator: (draft: MutableModel<Adress>) => MutableModel<Adress> | void): Adress;
+  readonly name?: string | null;
+  readonly description?: string | null;
+  readonly date?: string | null;
+  readonly assets?: (Asset | null)[] | null;
+  readonly active?: boolean | null;
+  readonly dim_width_m?: number | null;
+  readonly dim_height_m?: number | null;
+  readonly dim_depth_m?: number | null;
+  readonly weight_kg?: number | null;
+  readonly tags?: string | null;
+  readonly tax?: number | null;
+  readonly net_price?: string | null;
+  readonly stocks?: (Stock | null)[] | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  constructor(init: ModelInit<Item, ItemMetaData>);
+  static copyOf(source: Item, mutator: (draft: MutableModel<Item, ItemMetaData>) => MutableModel<Item, ItemMetaData> | void): Item;
 }
 
-export declare class Basket {
+export declare class Asset {
   readonly id: string;
-  readonly items?: (Item | null)[];
-  readonly entity?: Entity;
-  constructor(init: ModelInit<Basket>);
-  static copyOf(source: Basket, mutator: (draft: MutableModel<Basket>) => MutableModel<Basket> | void): Basket;
+  readonly src?: string | null;
+  readonly index?: number | null;
+  readonly tags?: string | null;
+  readonly typ?: AssetType | keyof typeof AssetType | null;
+  readonly description?: string | null;
+  readonly itemID: string;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  constructor(init: ModelInit<Asset, AssetMetaData>);
+  static copyOf(source: Asset, mutator: (draft: MutableModel<Asset, AssetMetaData>) => MutableModel<Asset, AssetMetaData> | void): Asset;
 }

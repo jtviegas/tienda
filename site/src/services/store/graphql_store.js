@@ -1,76 +1,36 @@
 
 // @ts-ignore
-import { DataStore, Predicates, SortDirection } from '@aws-amplify/datastore';
+// import { DataStore, Predicates, SortDirection } from '@aws-amplify/datastore';
 // @ts-ignore
-import { Item, Basket, TrxItem, Trx, Entity, Payment, Adress } from '../../models';
+// import { Item, Basket, TrxItem, Trx, Entity, Payment, Adress } from '../../models/index';
+
+import { DataStore } from '@aws-amplify/datastore';
+import {Item, Entity} from "./models";
+import {Predicates, SortDirection} from "aws-amplify";
 
 class Store {
 
-    saveItem(item){
-        return DataStore.save(item);
+    async saveItem(item){
+        return await DataStore.save(item);
     }
 
-    getItem(id){
-        return DataStore.query(Item, id);
+    async getItem(id){
+        return await DataStore.query(Item, id);
     }
 
-    getItems(filter, pagination){
+    async getItems(filter, pagination){
+        pagination['sort'] = (s => s.index(SortDirection.ASCENDING))
         if ( null !== filter )
-            return DataStore.query(Item, filter, pagination, {sort: s => s.index(SortDirection.ASCENDING)});
+            return await DataStore.query(Item, filter, pagination);
         else
-            return DataStore.query(Item, Predicates.ALL, pagination, {sort: s => s.index(SortDirection.ASCENDING)});
+            return await DataStore.query(Item, Predicates.ALL, pagination);
     }
 
-    deleteItems(ids){
+    async deleteItems(ids){
         if( Array.isArray(ids) && 0 < ids.length )
-            return DataStore.delete(Item, o => o.id("contains", ids));
+            return await DataStore.delete(Item, o => ids.includes(o.id));
         else
-            return DataStore.delete(Item, Predicates.ALL);
-    }
-
-    saveBasket(basket){
-        return DataStore.save(basket);
-    }
-
-    getBasket(id){
-        return DataStore.query(Basket, id);
-    }
-
-    deleteBaskets(ids){
-        if( Array.isArray(ids) && 0 < ids.length )
-            return DataStore.delete(Basket, o => o.id("contains", ids));
-        else
-            return DataStore.delete(Basket, Predicates.ALL);
-    }
-
-    saveTrxItem(trxItem){
-        return DataStore.save(trxItem);
-    }
-
-    getTrxItems(trxId){
-        return DataStore.query(TrxItem, o => o.trxID("eq", trxId));
-    }
-
-    deleteTrxItems(ids){
-        if( Array.isArray(ids) && 0 < ids.length )
-            return DataStore.delete(TrxItem, o => o.id("contains", ids));
-        else
-            return DataStore.delete(TrxItem, Predicates.ALL);
-    }
-
-    saveTrx(trx){
-        return DataStore.save(trx);
-    }
-
-    getTrxs(entityId){
-        return DataStore.query(Trx, o => o.entityID("eq", entityId));
-    }
-
-    deleteTrxs(ids){
-        if( Array.isArray(ids) && 0 < ids.length )
-            return DataStore.delete(Trx, o => o.id("contains", ids));
-        else
-            return DataStore.delete(Trx, Predicates.ALL);
+            return await DataStore.delete(Item, Predicates.ALL);
     }
 
     saveEntity(entity){
@@ -95,23 +55,6 @@ class Store {
             return DataStore.delete(Entity, Predicates.ALL);
     }
 
-    savePayment(payment){
-        return DataStore.save(payment);
-    }
-
-    getPayments(filter, pagination){
-        if ( null !== filter )
-            return DataStore.query(Payment, filter, pagination);
-        else
-            return DataStore.query(Payment, Predicates.ALL, pagination);
-    }
-
-    deletePayments(ids){
-        if( Array.isArray(ids) && 0 < ids.length )
-            return DataStore.delete(Payment, o => o.id("contains", ids));
-        else
-            return DataStore.delete(Payment, Predicates.ALL);
-    }
 
     saveAddress(address){
         return DataStore.save(address);

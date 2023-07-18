@@ -2,48 +2,32 @@
 import { initSchema } from '@aws-amplify/datastore';
 import { schema } from './schema';
 
-const StockUnit = {
-  "G": "G",
-  "ML": "ML",
-  "COUNT": "COUNT"
+const Warehouse = {
+  "ONE": "ONE",
+  "TWO": "TWO"
 };
 
-const TrxStatus = {
-  "STARTED": "STARTED",
-  "COMPLETED": "COMPLETED",
-  "CANCELLED": "CANCELLED"
+const Unit = {
+  "KG": "KG",
+  "LTR": "LTR",
+  "COUNT": "COUNT",
+  "METER": "METER"
 };
 
-const PaymentStatus = {
-  "STARTED": "STARTED",
-  "COMPLETED": "COMPLETED",
-  "FAILED": "FAILED"
+const AssetType = {
+  "IMAGE": "IMAGE",
+  "VIDEO": "VIDEO"
 };
 
-const EntityType = {
-  "ADMIN": "ADMIN",
-  "PRIVATE": "PRIVATE",
-  "ORGANIZATION": "ORGANIZATION"
-};
-
-const AddressType = {
-  "FISCAL": "FISCAL",
-  "DELIVER": "DELIVER"
-};
-
-const { Item, TrxItem, Trx, Payment, Entity, Adress, Basket } = initSchema(schema);
+const { Stock, Address, Entity, Item, Asset } = initSchema(schema);
 
 export {
-  Item,
-  TrxItem,
-  Trx,
-  Payment,
+  Stock,
+  Address,
   Entity,
-  Adress,
-  Basket,
-  StockUnit,
-  TrxStatus,
-  PaymentStatus,
-  EntityType,
-  AddressType
+  Item,
+  Asset,
+  Warehouse,
+  Unit,
+  AssetType
 };

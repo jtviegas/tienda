@@ -8,12 +8,19 @@ import {StockUnit} from "../../models/index"
 
 const newItem = () => {
     return {
+        name: "",
+        description: "",
+        date: new Date().getTime(),
         eur: 0.0,
-        dob: new Date().getTime(),
+        assets: [],
         active: true,
-        stock_qty: 1,
-        stock_measure: StockUnit.COUNT,
-        images: []
+        dim_width_m: 0.0,
+        dim_height_m: 0.0,
+        dim_depth_m: 0.0,
+        weight_kg: 0.0,
+        tags: "",
+        net_price: 0.0,
+        stocks: []
     }
 }
 

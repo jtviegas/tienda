@@ -75,9 +75,9 @@
 
 
 
+## GraphQL
 
-
-
+Edit your schema at /Users/jotvi/Documents/code/tienda/site/amplify/backend/api/amplifyDatasource/schema.graphql or place .graphql files in a directory at /Users/jotvi/Documents/code/tienda/site/amplify/backend/api/amplifyDatasource/schema
 
 
 
