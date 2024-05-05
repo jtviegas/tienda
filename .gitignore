@@ -148,3 +148,4 @@ amplifytools.xcconfig
 .vscode
 .secrets
 .idea
+.local_variables
