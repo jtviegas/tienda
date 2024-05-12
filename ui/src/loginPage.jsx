@@ -10,6 +10,10 @@ const LoginPage = () => {
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [isSignUp, setIsSignUp] = useState(false)
+  const [isSignIn, setIsSignIn] = useState(false)
+  const [isPasswordForgotten, setIsPasswordForgotten] = useState(false)
+  const [verificationcode, setVerificationcode] = useState("")
+  
   const navigate = useNavigate()
 
   const handleSignIn = async e => {
@@ -46,13 +50,27 @@ const LoginPage = () => {
     }
   }
 
+  const handlePasswordForgotten = async e => {
+    e.preventDefault()
+    if (password !== confirmPassword) {
+      alert("Passwords do not match")
+      return
+    }
+    try {
+      await signUp(email, password)
+      navigate("/confirm", { state: { email } })
+    } catch (error) {
+      alert(`Sign up failed: ${error}`)
+    }
+  }
+
   return (
     <div className="loginForm">
       <h1>Welcome</h1>
       <h4>
         {isSignUp ? "Sign up to create an account" : "Sign in to your account"}
       </h4>
-      <form onSubmit={isSignUp ? handleSignUp : handleSignIn}>
+      <form onSubmit={isSignUp ? handleSignUp : (isSignIn ? handleSignIn: handlePasswordForgotten)}>
         <div>
           <input
             className="inputText"
@@ -64,17 +82,32 @@ const LoginPage = () => {
             required
           />
         </div>
-        <div>
-          <input
-            className="inputText"
-            id="password"
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            placeholder="Password"
-            required
-          />
-        </div>
+        {isPasswordForgotten && (
+          <div>
+            <input
+              className="inputText"
+              id="verificationcode"
+              type="text"
+              value={verificationcode}
+              onChange={e => setVerificationcode(e.target.value)}
+              placeholder="Verification Code"
+              required
+            />
+          </div>
+        )}
+        {(!isPasswordForgotten) && (
+          <div>
+            <input
+              className="inputText"
+              id="password"
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              placeholder="Password"
+              required
+            />
+          </div>
+        )}
         {isSignUp && (
           <div>
             <input
@@ -88,13 +121,25 @@ const LoginPage = () => {
             />
           </div>
         )}
-        <button type="submit">{isSignUp ? "Sign Up" : "Sign In"}</button>
+
+        <button type="submit">{isSignUp ? "Sign Up" : ( isPasswordForgotten ? "Submit verification code" : "Sign In" )}</button>
       </form>
-      <button onClick={() => setIsSignUp(!isSignUp)}>
-        {isSignUp
-          ? "Already have an account? Sign In"
-          : "Need an account? Sign Up"}
-      </button>
+
+      <div>
+        <button onClick={() => setIsSignUp(true) && setIsSignIn(false) && setIsPasswordForgotten(false)}>
+          Sign Up
+        </button>
+      </div>
+
+      {(!isPasswordForgotten) && (
+        <div>
+          <button onClick={() => setIsSignUp(false) && setIsSignIn(false) && setIsPasswordForgotten(true)}>
+            Forgot your password?
+          </button>
+        </div>
+      )}
+      
+
     </div>
   )
 }

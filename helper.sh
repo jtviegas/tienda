@@ -193,6 +193,16 @@ ngrok_off(){
   info "[ngrok_off|out]"
 }
 
+find_userpool_client_id(){
+  info "[find_userpool_client_id|in]"
+
+  outputs=$(aws cloudformation describe-stacks --stack-name "$COGNITO_STACK" --query 'Stacks[0].Outputs')
+  value=$(echo "$outputs" | jq -r ".[] | select(.OutputKey == \"$USERPOOL_CLIENTID_VAR\") | .OutputValue")
+  info "[find_userpool_client_id] clientId found: $value"
+
+  info "[find_userpool_client_id|out]"
+}
+
 # -------------------------------------
 usage() {
   cat <<EOM
@@ -211,8 +221,7 @@ usage() {
             on                              deploys infrastructure
             off                             destroys infrastructure
       - ngrok {on, off}                     sets up (and closes) tunnel with a dns to local '$PORT'
-
-
+      - find_pool_client_id                 find cognito pool client id
       
 EOM
   exit 1
@@ -268,6 +277,9 @@ case "$1" in
         usage
         ;;
     esac
+    ;;
+  find_pool_client_id)
+    find_userpool_client_id
     ;;
   *)
     usage

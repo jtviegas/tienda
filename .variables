@@ -3,6 +3,8 @@ export ORGANISATION="tgedr"
 export DOMAIN="it"
 export SOLUTION="tienda"
 export UI_DIR="ui"
+export COGNITO_STACK="CognitoStack"
+export USERPOOL_CLIENTID_VAR="userPoolClientId"
 
 export ENVIRONMENT="${ENV:-dev}"
 

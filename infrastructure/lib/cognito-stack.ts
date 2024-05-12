@@ -1,11 +1,12 @@
 import * as cdk from 'aws-cdk-lib';
-import { Duration, RemovalPolicy } from 'aws-cdk-lib';
-import { AccountRecovery, CfnUserPoolGroup, CfnUserPoolUser, CfnUserPoolUserToGroupAttachment, ClientAttributes, Mfa, OAuthScope, UserPool, UserPoolClientIdentityProvider } from 'aws-cdk-lib/aws-cognito';
+import { CfnOutput, Duration, RemovalPolicy } from 'aws-cdk-lib';
+import { AccountRecovery, CfnUserPoolGroup, CfnUserPoolUser, CfnUserPoolUserToGroupAttachment, ClientAttributes, Mfa, OAuthScope, UserPool, UserPoolClient, UserPoolClientIdentityProvider } from 'aws-cdk-lib/aws-cognito';
 import { Construct } from 'constructs';
 import { Props } from './props';
 import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId } from 'aws-cdk-lib/custom-resources';
 
 export class CognitoStack extends cdk.Stack {
+
   constructor(scope: Construct, id: string, props: Props) {
     super(scope, id, props);
 
@@ -26,7 +27,7 @@ export class CognitoStack extends cdk.Stack {
     const writeAttributes = new ClientAttributes().withStandardAttributes({email: true});
     const readAttributes = writeAttributes.withStandardAttributes({emailVerified: true, lastUpdateTime: true});
 
-    pool.addClient(`${idPrefix}_userpool_client`, {
+    const poolClient: UserPoolClient = pool.addClient(`${idPrefix}_userpool_client`, {
       accessTokenValidity: Duration.minutes(720),
       authFlows: {
         userPassword: true,
@@ -36,6 +37,11 @@ export class CognitoStack extends cdk.Stack {
       userPoolClientName: props.userpool_client,
       readAttributes: readAttributes,
       writeAttributes: writeAttributes
+    });
+
+    new CfnOutput(this, 'userPoolClientId', {
+      value: poolClient.userPoolClientId,
+      exportName: props.userpool_client_id_exported_var, 
     });
 
     const poolUserRootOne = new CfnUserPoolUser(this, `${idPrefix}_userpool_user_root_one`, {

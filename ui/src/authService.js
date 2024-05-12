@@ -5,7 +5,9 @@ import {
     CognitoIdentityProviderClient,
     InitiateAuthCommand,
     SignUpCommand,
-    ConfirmSignUpCommand
+    ConfirmSignUpCommand,
+    ForgotPasswordCommand,
+    ConfirmForgotPasswordCommand
   } from "@aws-sdk/client-cognito-identity-provider"
   import config from "./config.json"
   
@@ -66,20 +68,36 @@ import {
     }
   }
 
-  export const resetPswd = async (email, password) => {
-    const params = {
-        UserPoolId: config.userPoolId,
-      Username: email,
-      Password: password,
-      Permanent: true
-    }
+  export const forgotPswd = async (email) => {
+    const params = { 
+      ClientId: config.clientId,
+      Username: email
+    };
     try {
-      const command = new AdminSetUserPasswordCommand(params)
+      const command = new ForgotPasswordCommand(params)
       const response = await cognitoClient.send(command)
-      console.log("reset pswd success: ", response)
+      console.log("forgot pswd command success: ", response)
       return response
     } catch (error) {
-      console.error("Error resetting pswd: ", error)
+      console.error("Error on forgot pswd command: ", error)
+      throw error
+    }
+  }
+
+  export const confirmForgotPswd = async (email, pswd, code) => {
+    const params = { 
+      ClientId: config.clientId,
+      Username: email, 
+      ConfirmationCode: code, 
+      Password: pswd
+    };
+    try {
+      const command = new ConfirmForgotPasswordCommand(params)
+      const response = await cognitoClient.send(command)
+      console.log("confirm forgot pswd command success: ", response)
+      return response
+    } catch (error) {
+      console.error("Error on confirm forgot pswd command: ", error)
       throw error
     }
   }

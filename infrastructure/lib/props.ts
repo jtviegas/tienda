@@ -15,5 +15,6 @@ export interface Props extends cdk.StackProps {
   readonly userpool_client: string;
   readonly root_one_pswd: string;
   readonly root_one_email: string;
+  readonly userpool_client_id_exported_var: string;
 }
 
