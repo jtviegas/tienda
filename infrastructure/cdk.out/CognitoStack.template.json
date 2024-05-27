@@ -1,0 +1,370 @@
+{
+ "Resources": {
+  "CognitoStackdevuserpoolsmsRole777F9C2A": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Condition": {
+        "StringEquals": {
+         "sts:ExternalId": "CognitoStackCognitoStackdevuserpoolFD26D2B5"
+        }
+       },
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "cognito-idp.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Policies": [
+     {
+      "PolicyDocument": {
+       "Statement": [
+        {
+         "Action": "sns:Publish",
+         "Effect": "Allow",
+         "Resource": "*"
+        }
+       ],
+       "Version": "2012-10-17"
+      },
+      "PolicyName": "sns-publish"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CognitoStack/CognitoStack_dev_userpool/smsRole/Resource"
+   }
+  },
+  "CognitoStackdevuserpool2FEC7D02": {
+   "Type": "AWS::Cognito::UserPool",
+   "Properties": {
+    "AccountRecoverySetting": {
+     "RecoveryMechanisms": [
+      {
+       "Name": "verified_email",
+       "Priority": 1
+      }
+     ]
+    },
+    "AdminCreateUserConfig": {
+     "AllowAdminCreateUserOnly": false
+    },
+    "AutoVerifiedAttributes": [
+     "email",
+     "phone_number"
+    ],
+    "DeletionProtection": "INACTIVE",
+    "EmailVerificationMessage": "The verification code to your new account is {####}",
+    "EmailVerificationSubject": "Verify your new account",
+    "EnabledMfas": [
+     "SMS_MFA"
+    ],
+    "MfaConfiguration": "OPTIONAL",
+    "SmsConfiguration": {
+     "ExternalId": "CognitoStackCognitoStackdevuserpoolFD26D2B5",
+     "SnsCallerArn": {
+      "Fn::GetAtt": [
+       "CognitoStackdevuserpoolsmsRole777F9C2A",
+       "Arn"
+      ]
+     }
+    },
+    "SmsVerificationMessage": "The verification code to your new account is {####}",
+    "UserPoolName": "tgedr_it_tienda_dev_userpool",
+    "UsernameAttributes": [
+     "email"
+    ],
+    "VerificationMessageTemplate": {
+     "DefaultEmailOption": "CONFIRM_WITH_CODE",
+     "EmailMessage": "The verification code to your new account is {####}",
+     "EmailSubject": "Verify your new account",
+     "SmsMessage": "The verification code to your new account is {####}"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "CognitoStack/CognitoStack_dev_userpool/Resource"
+   }
+  },
+  "CognitoStackdevuserpoolCognitoStackdevuserpoolclient3B59D1FB": {
+   "Type": "AWS::Cognito::UserPoolClient",
+   "Properties": {
+    "AccessTokenValidity": 720,
+    "AllowedOAuthFlows": [
+     "implicit",
+     "code"
+    ],
+    "AllowedOAuthFlowsUserPoolClient": true,
+    "AllowedOAuthScopes": [
+     "profile",
+     "phone",
+     "email",
+     "openid",
+     "aws.cognito.signin.user.admin"
+    ],
+    "CallbackURLs": [
+     "https://example.com"
+    ],
+    "ClientName": "tgedr_it_tienda_dev_userpool_client",
+    "ExplicitAuthFlows": [
+     "ALLOW_USER_PASSWORD_AUTH",
+     "ALLOW_USER_SRP_AUTH",
+     "ALLOW_REFRESH_TOKEN_AUTH"
+    ],
+    "ReadAttributes": [
+     "email",
+     "email_verified",
+     "updated_at"
+    ],
+    "SupportedIdentityProviders": [
+     "COGNITO"
+    ],
+    "TokenValidityUnits": {
+     "AccessToken": "minutes"
+    },
+    "UserPoolId": {
+     "Ref": "CognitoStackdevuserpool2FEC7D02"
+    },
+    "WriteAttributes": [
+     "email"
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CognitoStack/CognitoStack_dev_userpool/CognitoStack_dev_userpool_client/Resource"
+   }
+  },
+  "CognitoStackdevuserpooluserrootone": {
+   "Type": "AWS::Cognito::UserPoolUser",
+   "Properties": {
+    "DesiredDeliveryMediums": [
+     "EMAIL"
+    ],
+    "UserAttributes": [
+     {
+      "Name": "email",
+      "Value": "tmp.tgedr@gmail.com"
+     },
+     {
+      "Name": "email_verified",
+      "Value": "true"
+     }
+    ],
+    "UserPoolId": {
+     "Ref": "CognitoStackdevuserpool2FEC7D02"
+    },
+    "Username": "tmp.tgedr@gmail.com"
+   },
+   "Metadata": {
+    "aws:cdk:path": "CognitoStack/CognitoStack_dev_userpool_user_root_one"
+   }
+  },
+  "CognitoStackdevuserpooluserrootonepswd96618EDF": {
+   "Type": "Custom::AWS",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
+      "Arn"
+     ]
+    },
+    "Create": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"service\":\"CognitoIdentityServiceProvider\",\"action\":\"adminSetUserPassword\",\"parameters\":{\"UserPoolId\":\"",
+       {
+        "Ref": "CognitoStackdevuserpool2FEC7D02"
+       },
+       "\",\"Username\":\"tmp.tgedr@gmail.com\",\"Password\":\"932*crTj13q\",\"Permanent\":true},\"physicalResourceId\":{\"id\":\"CognitoStack_dev_userpool_user_root_one_pswd\"},\"logApiResponseData\":true}"
+      ]
+     ]
+    },
+    "InstallLatestAwsSdk": false
+   },
+   "DependsOn": [
+    "CognitoStackdevuserpooluserrootonepswdCustomResourcePolicy5E966F3A"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "CognitoStack/CognitoStack_dev_userpool_user_root_one_pswd/Resource/Default"
+   }
+  },
+  "CognitoStackdevuserpooluserrootonepswdCustomResourcePolicy5E966F3A": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "cognito-idp:AdminSetUserPassword",
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "CognitoStackdevuserpooluserrootonepswdCustomResourcePolicy5E966F3A",
+    "Roles": [
+     {
+      "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CognitoStack/CognitoStack_dev_userpool_user_root_one_pswd/CustomResourcePolicy/Resource"
+   }
+  },
+  "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CognitoStack/AWS679f53fac002430cb0da5b7982bd2287/ServiceRole/Resource"
+   }
+  },
+  "AWS679f53fac002430cb0da5b7982bd22872D164C4C": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-041651352119-eu-north-1",
+     "S3Key": "97f30e67419a1676a2215492723e5add1aa491caf0cbe2dd878fc4fab0468cd4.zip"
+    },
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Timeout": 120
+   },
+   "DependsOn": [
+    "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "CognitoStack/AWS679f53fac002430cb0da5b7982bd2287/Resource",
+    "aws:asset:path": "asset.97f30e67419a1676a2215492723e5add1aa491caf0cbe2dd878fc4fab0468cd4",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "CognitoStackdevuserpoolgrouproot": {
+   "Type": "AWS::Cognito::UserPoolGroup",
+   "Properties": {
+    "GroupName": "root",
+    "Precedence": 10,
+    "UserPoolId": {
+     "Ref": "CognitoStackdevuserpool2FEC7D02"
+    }
+   },
+   "DependsOn": [
+    "CognitoStackdevuserpooluserrootone"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "CognitoStack/CognitoStack_dev_userpool_group_root"
+   }
+  },
+  "CognitoStackdevuserpoolgrouprootattachrootone": {
+   "Type": "AWS::Cognito::UserPoolUserToGroupAttachment",
+   "Properties": {
+    "GroupName": "root",
+    "UserPoolId": {
+     "Ref": "CognitoStackdevuserpool2FEC7D02"
+    },
+    "Username": "tmp.tgedr@gmail.com"
+   },
+   "DependsOn": [
+    "CognitoStackdevuserpoolgrouproot"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "CognitoStack/CognitoStack_dev_userpool_group_root_attach_root_one"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/2VQTU/DMAz9LbunZisT960SHJnKOFdZGkrWJJ5qhwlV+e+kGR3TOL0Pv9hPKWG1XsJyIc9UqLYvrDnA+MZS9SJZzaiw84YRxnfSww7RiurDX/lMKmu059vRf2fCW/0yYDjdB/aY7Q2nBp8ubYjCSAdjjVZP2Yw7tEZ9T/LCorDSHVqZihvfWc3on4NXbNCLK0npmUdBj40k0kywmSBp2AbVa95K0lHUmjAMKl98DXwKLFQgRtcMv5P08ExV9v7CdzK1nXm+kn61S/2i8NhqONLDV7mCJygXRzKmGIJn4zTUF/wB18onspgBAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "CognitoStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "userPoolClientId": {
+   "Value": {
+    "Ref": "CognitoStackdevuserpoolCognitoStackdevuserpoolclient3B59D1FB"
+   },
+   "Export": {
+    "Name": "userPoolClientId"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

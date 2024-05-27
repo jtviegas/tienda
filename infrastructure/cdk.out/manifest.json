@@ -1,0 +1,131 @@
+{
+  "version": "36.0.0",
+  "artifacts": {
+    "CognitoStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "CognitoStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "CognitoStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://041651352119/eu-north-1",
+      "properties": {
+        "templateFile": "CognitoStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::041651352119:role/cdk-hnb659fds-deploy-role-041651352119-eu-north-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::041651352119:role/cdk-hnb659fds-cfn-exec-role-041651352119-eu-north-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-041651352119-eu-north-1/95dce3c79de48023ce5c520336507e9fc58258cd0704a9e6cdb185a964378bac.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "CognitoStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::041651352119:role/cdk-hnb659fds-lookup-role-041651352119-eu-north-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "CognitoStack.assets"
+      ],
+      "metadata": {
+        "/CognitoStack/CognitoStack_dev_userpool/smsRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CognitoStackdevuserpoolsmsRole777F9C2A"
+          }
+        ],
+        "/CognitoStack/CognitoStack_dev_userpool/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CognitoStackdevuserpool2FEC7D02"
+          }
+        ],
+        "/CognitoStack/CognitoStack_dev_userpool/CognitoStack_dev_userpool_client/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CognitoStackdevuserpoolCognitoStackdevuserpoolclient3B59D1FB"
+          }
+        ],
+        "/CognitoStack/userPoolClientId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "userPoolClientId"
+          }
+        ],
+        "/CognitoStack/CognitoStack_dev_userpool_user_root_one": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CognitoStackdevuserpooluserrootone"
+          }
+        ],
+        "/CognitoStack/CognitoStack_dev_userpool_user_root_one_pswd/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CognitoStackdevuserpooluserrootonepswd96618EDF"
+          }
+        ],
+        "/CognitoStack/CognitoStack_dev_userpool_user_root_one_pswd/CustomResourcePolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CognitoStackdevuserpooluserrootonepswdCustomResourcePolicy5E966F3A"
+          }
+        ],
+        "/CognitoStack/AWS679f53fac002430cb0da5b7982bd2287/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2"
+          }
+        ],
+        "/CognitoStack/AWS679f53fac002430cb0da5b7982bd2287/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AWS679f53fac002430cb0da5b7982bd22872D164C4C"
+          }
+        ],
+        "/CognitoStack/CognitoStack_dev_userpool_group_root": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CognitoStackdevuserpoolgrouproot"
+          }
+        ],
+        "/CognitoStack/CognitoStack_dev_userpool_group_root_attach_root_one": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CognitoStackdevuserpoolgrouprootattachrootone"
+          }
+        ],
+        "/CognitoStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/CognitoStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/CognitoStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "CognitoStack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}
