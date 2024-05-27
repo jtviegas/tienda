@@ -1,4 +1,22 @@
 
+# ------- packages -------
+
+# infrastructure
+export TYPESCRIPT_VERSION="~5.3.3"
+export CDK_VERSION="2.140.0"
+# ui
+export COGNITO_ID_PROVIDER_VERSION="^3.569.0"
+export REDUXJS_TOOLKIT_VERSION="^2"
+export CLASSNAMES_VERSION="^2.2.6"
+export REACT_VERSION="^18"
+export REACT_DOM_VERSION="^18"
+export REACT_REDUX_VERSION="^9"
+export REACT_ROUTER_DOM_VERSION="^5"
+export BOOTSTRAP_VERSION="^5.3.3"
+export REACT_BOOTSTRAP_VERSION="^2.10"
+
+
+# solution
 export ORGANISATION="tgedr"
 export DOMAIN="it"
 export SOLUTION="tienda"
@@ -18,15 +36,9 @@ export ROOT_TWO_EMAIL="jtviegas@gmail.com"
 
 export PORT=5173
 
-export TYPESCRIPT_VERSION="~5.3.3"
-export CDK_VERSION="2.140.0"
-
 # aws
 export AWS_REGION="eu-north-1"
 export AWS_PROFILE="tgedr_iac"
 export AWS_ACCESS_KEY_ID=AKIAQTMU5GI36WP42CGF
-
-URL=https://znq2ud-ip-147-161-155-100.tunnelmole.net/oauth2/idpresponse
-
 
 

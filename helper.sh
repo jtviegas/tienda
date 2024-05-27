@@ -156,8 +156,11 @@ ui_scaffolding(){
   cd "$this_folder"
   
   npm create vite@latest $UI_DIR -- --template react && cd $UI_DIR && npm install && \
-    npm install --save @aws-sdk/client-cognito-identity-provider@^3.533.0 react-router-dom@^6.22.3 && \
-    npm install --save-dev @types/react-router-dom@^5.3
+  npm install --save "@aws-sdk/client-cognito-identity-provider@${COGNITO_ID_PROVIDER_VERSION}" \
+      "react-router-dom@${REACT_ROUTER_DOM_VERSION}" "bootstrap@${BOOTSTRAP_VERSION}" \
+      "@reduxjs/toolkit@${REDUXJS_TOOLKIT_VERSION}" "classnames@${CLASSNAMES_VERSION}" \
+      "react@${REACT_VERSION}" "react-dom@${REACT_DOM_VERSION}" "react-redux@${REACT_REDUX_VERSION}" \
+      "react-bootstrap@${REACT_BOOTSTRAP_VERSION}"
   
   result="$?"
   cd "$_pwd"
