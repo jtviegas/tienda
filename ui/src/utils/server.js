@@ -116,6 +116,7 @@ for (let i = 0; i < NUM_ITEMS; i++) {
 
 /* MSW REST API Handlers */
 
+
 export const handlers = [
   http.get('/fakeApi/items', async function () {
     return HttpResponse.json(db.item.getAll())
@@ -157,4 +158,5 @@ export const handlers = [
 ]
 
 export const worker = setupWorker(...handlers)
+
 // worker.printHandlers() // Optional: nice for debugging to see all available route handlers that will be intercepted

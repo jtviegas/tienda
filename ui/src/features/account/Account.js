@@ -5,32 +5,36 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory, Redirect } from 'react-router-dom'
 import { nanoid } from '@reduxjs/toolkit'
 
-import { authenticated } from './accountSlice'
+//import { authenticated } from './accountSlice'
 import Container from 'react-bootstrap/esm/Container'
+import { getAccount } from './accountSlice';
 
 export const Account = () => {
 
-  const account = useSelector(state => state.account)
-  console.log("window: ", window)
   const dispatch = useDispatch()
+  const history = useHistory()
+  
+  const account = useSelector(getAccount)
+  const hasAccount = (0 < Object.keys(account).length)
 
-  /*
-  if (0 == Object.keys(account).length)
-    console.log("no account yet")
-    // window.location.href = "https://www.google.com/"
-  else
-  { */ 
+  console.log("[Account]", account)
+
+  if(!hasAccount){
+    return (<Redirect to="/login?referrer=/account"/>)
+  }
+  else{
     return (
       <Container>
-        <fieldset disabled>
+        <fieldset disabled={!hasAccount}>
         <Form>
         <Row className="justify-content-md-center">
           <Col md={{ span: 6 }}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
+                <Form.Control type="email" placeholder="Enter email" value={account.user}/>
                 <Form.Text className="text-muted">
                   We'll never share your email with anyone else.
                 </Form.Text>
@@ -41,7 +45,7 @@ export const Account = () => {
           <Col md={{ span: 6 }}>
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" />
+            <Form.Control type="password" placeholder="Password" value={account.pswd}/>
           </Form.Group>
           <Button variant="primary" type="submit">
             Submit
@@ -52,6 +56,8 @@ export const Account = () => {
         </fieldset>
       </Container>
     )
+  }
+    
   //}
 
 
