@@ -9,18 +9,18 @@ import {
     ForgotPasswordCommand,
     ConfirmForgotPasswordCommand
   } from "@aws-sdk/client-cognito-identity-provider"
-  import config from "./config.json"
+  import config from "../config.json"
   
   export const cognitoClient = new CognitoIdentityProviderClient({
     region: config.region
   })
   
-  export const signIn = async (username, password) => {
+  export const signIn = async (email, password) => {
     const params = {
       AuthFlow: "USER_PASSWORD_AUTH",
       ClientId: config.clientId,
       AuthParameters: {
-        USERNAME: username,
+        USERNAME: email,
         PASSWORD: password
       }
     }

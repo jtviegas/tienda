@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { signUp } from "../../services/authService"
 
 const initialState = {
   account: {},
@@ -12,22 +13,13 @@ const accountSlice = createSlice({
   reducers: {
     signedIn:{
       reducer(state, action) {
-        console.log("state:", state)
-        console.log("action:", action)
-        state.account.user ="xpt2"
-        state.account.token="222"
-        console.log("state:", state)
-        console.log("action:", action)
+        state.account=action.payload
       },
     },
     signedUp: {
       reducer(state, action) {
-        console.log("state:", state)
-        console.log("action:", action)
-        state.account.user ="xpt1"
-        state.account.token="111"
-        console.log("state:", state)
-        console.log("action:", action)
+        signUp(action.payload.email, action.payload.pswd, action.payload.referrer)
+        //state.account=action.payload
       }
     }
   }

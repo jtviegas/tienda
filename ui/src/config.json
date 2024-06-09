@@ -1,5 +1,6 @@
 {
     "region": "eu-north-1",
     "userPoolId": "tgedr_it_tienda_dev_userpool",
-    "clientId": "7urado4ihtvebqohckrjtnkn43"
+    "clientId": "7urado4ihtvebqohckrjtnkn43",
+    "logo": "https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
 }

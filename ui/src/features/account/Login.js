@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import { useHistory } from 'react-router-dom'
-import qs from "qs"
+import { useHistory } from 'react-router-dom';
+import qs from "qs";
 import { getAccount } from './accountSlice';
-
-
-import { signedIn, signedUp } from './accountSlice'
+import config from "../../config.json";
+import { signedIn, signedUp } from './accountSlice';
+import { notificationIn } from '../notification/notificationSlice';
 
 
 export const Login = (props) => {
@@ -30,21 +30,34 @@ export const Login = (props) => {
 
   const onSignInClicked = () => {
     if (email && pswd) {
-      dispatch(signedIn({email, pswd}))
-      console.log("[Login] pushing referrer:", referrer)
-      history.push(referrer)
+      try{
+        dispatch(signedIn({email, pswd}));
+        history.push(referrer);
+      }
+      catch(error){
+        console.error("onSignInClicked: ", error)
+      }
+      
+      
     }
   }
 
   const onSignUpClicked = () => {
     if (email && pswd) {
-      dispatch(signedUp({email, pswd}))
-      console.log("[Login] pushing referrer:", referrer)
-      history.push(referrer)
-      setEmail('')
-      setPswd('')
+      try{
+        dispatch(signedUp({email, pswd}).then((o) => console.log("signedUp then", o)).catch((err) => {
+          console.log("signedUp reducer catch", err);
+          throw err;
+        }));
+        history.push(referrer);
+      }
+      catch(error){
+        console.error("onSignUpClicked: ", error)
+      }
     }
   }
+
+  
 
   const canSignX = Boolean(email) && Boolean(pswd)
 
@@ -53,7 +66,7 @@ export const Login = (props) => {
       <div className="card my-5">
         <Form className="card-body cardbody-color col-md-6 offset-md-3 col-8 offset-2 justify-content-md-center">
         <div className="text-center">
-            <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png" className="img-fluid profile-image-pic img-thumbnail rounded-circle my-2"
+            <img src={config.logo} className="img-fluid profile-image-pic img-thumbnail rounded-circle my-2"
               width="200px" alt="profile"/>
           </div>
           <Form.Group controlId="accountEmail">
@@ -67,15 +80,14 @@ export const Login = (props) => {
             <Form.Control type="password" placeholder="your password here" value={pswd} onChange={onPswdChanged}/>
           </Form.Group>
 
-          <Button type="button" className="col-8 offset-2 col-sm-4 offset-sm-1 my-3" disabled={!canSignX} onClick={onSignInClicked}> 
+          <Button type="button" value="signin" className="col-8 offset-2 col-sm-4 offset-sm-1 my-3" disabled={!canSignX} onClick={onSignInClicked}> 
             Sign in
           </Button>
-          <Button type="button" className="col-8 offset-2 col-sm-4 offset-sm-1 my-3" disabled={!canSignX} onClick={onSignUpClicked}>
+          <Button type="button" value="signup" className="col-8 offset-2 col-sm-4 offset-sm-1 my-3" disabled={!canSignX} onClick={onSignUpClicked}>
             Sign up
           </Button>
-
-          <div id="emailHelp" className="col-8 offset-2 col-sm-6 offset-sm-3 my-4"><a href="#">forgot passsword?</a></div>
         </Form>
+        <div id="emailHelp" className="my-4 text-center"><a href="#">forgot passsword?</a></div>
       </div>
     </Container>
   )
