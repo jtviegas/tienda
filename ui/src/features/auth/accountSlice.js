@@ -29,3 +29,5 @@ export const { signedIn, signedUp } = accountSlice.actions
 export default accountSlice.reducer
 
 export const getAccount = state => state.account.account
+
+

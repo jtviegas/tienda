@@ -6,7 +6,7 @@ import usersReducer from '../features/users/usersSlice'
 import notificationsReducer from '../features/notifications/notificationsSlice'
 */
 import { apiSlice } from '../features/api/apiSlice'
-import accountReducer from "../features/account/accountSlice"
+import accountReducer from "../features/auth/accountSlice"
 import notificationReducer from "../features/notification/notificationSlice"
 
 
