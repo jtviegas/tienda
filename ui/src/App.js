@@ -1,34 +1,27 @@
-import React from 'react'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from 'react-router-dom'
-import { ItemList } from "./features/item/ItemList"
-import { Navbar } from './components/Navbar'
-import { Account } from "./features/auth/Account"
-import { Auth } from "./features/auth/Auth"
-import { Notification } from './features/notification/Notification'
+import React from 'react';
+import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 
+// import logo from './logo.svg';
+// import { Counter } from './features/counter/Counter';
+import Header from './components/header';
+import Footer from './components/footer';
+import { SignUp } from './features/session/SignUp';
+import { Items } from './features/items/Items';
 
 function App() {
-
-  
   return (
-    <Router>
-      <Navbar />
+    <BrowserRouter>
       <div className="App">
-        <Notification/>
-        <Switch>
-          <Route exact path="/" component={ItemList} />
-          <Route exact path="/account" component={Account} />
-          <Route exact path="/login" component={Auth} />
-          <Redirect to="/" />
-        </Switch>
+        <Header />
+        <Routes>
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/" element={<Items />} />
+          <Route path="*" element={<SignUp />} />
+        </Routes>
+        <Footer />
       </div>
-    </Router>
-  )
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

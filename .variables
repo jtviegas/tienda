@@ -39,6 +39,6 @@ export PORT=5173
 # aws
 export AWS_REGION="eu-north-1"
 export AWS_PROFILE="tgedr_iac"
-export AWS_ACCESS_KEY_ID=AKIAQTMU5GI36WP42CGF
+export AWS_ACCESS_KEY_ID="$TGEDR_IAC_AWS_ACCESS_KEY_ID"
 
 

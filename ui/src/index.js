@@ -1,38 +1,24 @@
-import React from 'react'
-import { createRoot } from 'react-dom/client'
-import { Provider } from 'react-redux'
-
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { store } from './app/store';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.css';
-import './index.css'
-import App from './App'
-import store from './services/store'
-import { worker } from './utils/server'
-//import { extendedApiSlice } from './features/users/usersSlice'
-import {apiSlice} from "./features/api/apiSlice"
+import './index.css';
 
-const environment = import.meta.env.MODE
-console.log("[tienda] current environment: " + environment)
+const container = document.getElementById('root');
+const root = createRoot(container);
 
-// Wrap app rendering so we can wait for the mock API to initialize
-async function main() {
+root.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>
+);
 
-  if("development" === environment){
-    console.log("[tienda] starting mock server")
-    // mock API server
-    await worker.start({ onUnhandledRequest: 'bypass' })
-  }
-
-  store.dispatch(apiSlice.endpoints.getItems.initiate())
-
-  const root = createRoot(document.getElementById('root'))
-
-  root.render(
-    <React.StrictMode>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </React.StrictMode>,
-  )
-}
-
-main()
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();

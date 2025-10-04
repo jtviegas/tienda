@@ -1,0 +1,128 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
+import {
+    CognitoIdentityProviderClient,
+    InitiateAuthCommand,
+    SignUpCommand,
+    ConfirmSignUpCommand,
+    ForgotPasswordCommand,
+    ConfirmForgotPasswordCommand
+  } from "@aws-sdk/client-cognito-identity-provider"
+  import config from "../../config.json"
+  
+  export const cognitoClient = new CognitoIdentityProviderClient({
+    region: config.region
+  })
+  
+  export const login = async (input) => {
+    const {email, pswd} = input
+    const params = {
+      AuthFlow: "USER_PASSWORD_AUTH",
+      ClientId: config.clientId,
+      AuthParameters: {
+        USERNAME: email,
+        PASSWORD: pswd
+      }
+    }
+    try {
+      const command = new InitiateAuthCommand(params)
+      const { AuthenticationResult } = await cognitoClient.send(command)
+      if (AuthenticationResult) {
+        sessionStorage.setItem("idToken", AuthenticationResult.IdToken || "")
+        sessionStorage.setItem(
+          "accessToken",
+          AuthenticationResult.AccessToken || ""
+        )
+        sessionStorage.setItem(
+          "refreshToken",
+          AuthenticationResult.RefreshToken || ""
+        )
+        return AuthenticationResult
+      }
+    } catch (error) {
+      console.error("Error logging in: ", error)
+      throw error
+    }
+  }
+  
+  export const signUp = async (input) => {
+    const {email, pswd} = input
+    const params = {
+      ClientId: config.clientId,
+      Username: email,
+      Password: pswd,
+      UserAttributes: [
+        {
+          Name: "email",
+          Value: email
+        }
+      ]
+    }
+    try {
+      const command = new SignUpCommand(params)
+      const response = await cognitoClient.send(command)
+      sessionStorage.setItem("email", email)
+      console.log("Sign up success: ", response)
+      return response
+    } catch (error) {
+      console.error("Error signing up: ", error)
+      throw error
+    }
+  }
+
+  export const forgotPswd = async (input) => {
+    const {email} = input
+    const params = { 
+      ClientId: config.clientId,
+      Username: email
+    };
+    try {
+      const command = new ForgotPasswordCommand(params)
+      const response = await cognitoClient.send(command)
+      console.log("forgot pswd command success: ", response)
+      return response
+    } catch (error) {
+      console.error("Error on forgot pswd command: ", error)
+      throw error
+    }
+  }
+
+  export const confirmForgotPswd = async (input) => {
+    const {email, pswd, code} = input
+    const params = { 
+      ClientId: config.clientId,
+      Username: email, 
+      ConfirmationCode: code, 
+      Password: pswd
+    };
+    try {
+      const command = new ConfirmForgotPasswordCommand(params)
+      const response = await cognitoClient.send(command)
+      console.log("confirm forgot pswd command success: ", response)
+      return response
+    } catch (error) {
+      console.error("Error on confirm forgot pswd command: ", error)
+      throw error
+    }
+  }
+  
+  export const confirmSignUp = async (input) => {
+    const {email, code} = input
+    const params = {
+      ClientId: config.clientId,
+      Username: email,
+      ConfirmationCode: code
+    }
+    try {
+      const command = new ConfirmSignUpCommand(params)
+      const response = await cognitoClient.send(command)
+      console.log("Sign up success: ", response)
+      
+      return response
+    } catch (error) {
+      console.error("Error confirming sign up: ", error)
+      throw error
+    }
+  }
+  
